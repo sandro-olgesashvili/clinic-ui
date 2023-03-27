@@ -1,0 +1,56 @@
+.hero {
+  background-image: url("../../assets/Images/Rectangle 30.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.container {
+  max-width: 1621px;
+  margin: 0 auto;
+  flex: 1;
+  position: relative;
+  z-index: 5;
+}
+.abs {
+  width: 50%;
+  left: 0%;
+  top: 0;
+  height: 100%;
+  background: rgba(5, 51, 84, 0.25);
+  backdrop-filter: blur(2px);
+  border-radius: 0px 50px 50px 0px;
+  position: absolute;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 58px;
+  color: #ffffff;
+  max-width: 676px;
+  margin-bottom: 52px;
+}
+
+.loc {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 50px;
+  width: max-content;
+  padding-block: 20px;
+  padding-inline: 65px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  color: #053354;
+}

@@ -1,0 +1,80 @@
+.header {
+  padding-top: 17px;
+  padding-bottom: 27px;
+}
+.container {
+  max-width: 1621px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.container div:first-child h2 {
+  margin-left: -20px;
+  color: rgba(255, 44, 82, 1);
+}
+
+.nav-bar ul {
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar ul li a {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  color: #053354;
+  padding-block: 20px;
+  padding-inline: 20px;
+  border-bottom: 1px solid #ecf2f8;
+}
+
+.active-link {
+  font-weight: 500 !important;
+  border-bottom: 1px solid rgba(24, 164, 225, 1) !important;
+}
+
+.login-register {
+  display: flex;
+  align-items: center;
+  gap: 29px;
+}
+
+.login-register div:first-child {
+  padding: 11px 23px 15px 25px;
+  background: #f0faff;
+  border-radius: 25px;
+}
+
+.login-register div:first-child span:first-child {
+  color: rgba(24, 164, 225, 1);
+  cursor: pointer;
+}
+
+.login-register div:first-child span:nth-child(2) {
+  color: rgba(5, 51, 84, 1);
+}
+.login-register div:first-child span:last-child {
+  color: rgba(5, 51, 84, 1);
+  cursor: pointer;
+}
+
+.login-register div:first-child span:last-child a {
+  color: rgba(5, 51, 84, 1);
+  cursor: pointer;
+}
+
+.login-register div:last-child {
+  background: #f0faff;
+  padding: 13px 24px 13px 26px;
+  color: rgba(5, 51, 84, 1);
+  border-radius: 25px;
+  cursor: pointer;
+}

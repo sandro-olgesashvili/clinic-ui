@@ -1,0 +1,50 @@
+<header class="header">
+  <div class="container">
+    <div>
+      <img src="../../assets/Images/logo 1.png" alt="" />
+      <h2>კლინიკა</h2>
+    </div>
+    <nav class="nav-bar">
+      <ul>
+        <li>
+          <a
+            routerLink="/"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active-link"
+            >ექიმები</a
+          >
+        </li>
+        <li>
+          <a routerLink="/clinic" routerLinkActive="active-link">კლინიკები</a>
+        </li>
+        <li>
+          <a routerLink="/annotations" routerLinkActive="active-link"
+            >ანოტაციები</a
+          >
+        </li>
+        <li>
+          <a routerLink="/promotions" routerLinkActive="active-link">აქციები</a>
+        </li>
+        <li>
+          <a routerLink="/services" routerLinkActive="active-link">სერვისები</a>
+        </li>
+        <li>
+          <a routerLink="/medicines" routerLinkActive="active-link"
+            >მედიკამენტები</a
+          >
+        </li>
+        <li>
+          <a routerLink="/contact" routerLinkActive="active-link">კონტაქტი</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="login-register">
+      <div>
+        <span>ავტორიზაცია</span>
+        <span> &nbsp;/&nbsp; </span>
+        <span> <a routerLink="/register">რეგისტრაცია</a></span>
+      </div>
+      <div>ENG</div>
+    </div>
+  </div>
+</header>
