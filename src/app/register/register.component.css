@@ -88,3 +88,60 @@
   cursor: pointer;
   color: #ffffff;
 }
+.file-up {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.file-cont {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #ecf2f8;
+  padding-block: 13px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  width: 480px;
+  justify-content: flex-end;
+}
+
+.file-label {
+  order: 1;
+  padding: 0;
+  padding-right: 20px;
+}
+
+.file-p {
+  padding-left: 20px;
+}
+
+.err {
+  color: red;
+  font-weight: normal;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.err2 {
+  font-weight: normal;
+  margin-top: 10px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ff2c52;
+}
+
+.succ {
+  color: green;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

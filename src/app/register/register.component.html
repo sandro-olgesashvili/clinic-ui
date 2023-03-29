@@ -1,7 +1,7 @@
 <section class="register">
   <div class="container">
     <h2 class="title">რეგისტრაცია</h2>
-    <form class="form">
+    <form class="form" (ngSubmit)="confirmToken()">
       <div class="form-input">
         <label>სახელი</label>
         <div class="sub-input">
@@ -10,14 +10,15 @@
             name="name"
             id="name"
             placeholder="( მინიმუმ 5 სიმბოლო )"
+            [(ngModel)]="name"
           />
         </div>
       </div>
       <div class="form-input">
         <label>Email</label>
         <div class="sub-input">
-          <input type="text" name="name" id="name" />
-          <button>
+          <input type="email" name="email" id="email" [(ngModel)]="email" />
+          <button type="button" (click)="sendEmial()">
             <img
               src="../../assets/Images/mail-right-arrow-svgrepo-com 1.png"
               alt="mail"
@@ -28,36 +29,79 @@
       <div class="form-input">
         <label>პირადი ნომერი</label>
         <div class="sub-input">
-          <input type="text" name="name" id="name" placeholder="00000000000" />
+          <input
+            type="text"
+            name="idNumber"
+            id="idNumber"
+            placeholder="00000000000"
+            [(ngModel)]="idNumber"
+          />
         </div>
       </div>
       <div class="form-input">
         <label>გვარი</label>
         <div class="sub-input">
-          <input type="text" name="name" id="name" placeholder="გვარი" />
+          <input
+            type="text"
+            name="surname"
+            id="surname"
+            placeholder="გვარი"
+            [(ngModel)]="surname"
+          />
         </div>
       </div>
       <div class="form-input">
         <label>აქტივაციის კოდი</label>
         <div class="sub-input">
           <span class="abs-dur">ვადა 30 წთ</span>
-          <input type="text" name="name" id="name" />
+          <input
+            type="text"
+            name="confirmationToken"
+            id="confirmationToken"
+            [(ngModel)]="confirmationToken"
+          />
         </div>
+        <span class="err2" style="margin-top: 10px">{{ errConfirm }}</span>
       </div>
       <div class="form-input">
         <label>პაროლი</label>
         <div class="sub-input">
           <input
             type="text"
-            name="name"
-            id="name"
+            name="password"
+            id="password"
+            [(ngModel)]="password"
             placeholder="( მინიმუმ 8 სიმბოლო : @ 7 , )"
           />
+        </div>
+      </div>
+      <div class="form-input">
+        <label for="file">ფოტოსურათი</label>
+        <div class="file-cont">
+          <label for="file" class="file-label"
+            ><img
+              src="../../assets/Images/photo-outline-svgrepo-com 1.png"
+              alt=""
+          /></label>
+          <p *ngIf="file" class="file-p">{{ file.name }}</p>
+          <div class="sub-input">
+            <input
+              type="file"
+              name="file"
+              id="file"
+              accept="image/*"
+              class="file-up"
+              [(ngModel)]="file"
+              (change)="onChange($event)"
+            />
+          </div>
         </div>
       </div>
       <div class="sub-btn">
         <button type="submit">რეგისტრაცია</button>
       </div>
     </form>
+    <h3 class="err">{{ errMsg }}</h3>
+    <h3 class="succ">{{ succMSg }}</h3>
   </div>
 </section>

@@ -39,12 +39,99 @@
       </ul>
     </nav>
     <div class="login-register">
-      <div>
-        <span>ავტორიზაცია</span>
+      <div *ngIf="isUserLoggedIn === false">
+        <span (click)="openLogin()">ავტორიზაცია</span>
         <span> &nbsp;/&nbsp; </span>
         <span> <a routerLink="/register">რეგისტრაცია</a></span>
       </div>
+      <div *ngIf="isUserLoggedIn === true">
+        <span>{{ ls?.name }} {{ ls?.surname }}</span>
+        <span> &nbsp;/&nbsp; </span>
+        <span (click)="logout()"> გასვლა</span>
+      </div>
       <div>ENG</div>
+    </div>
+  </div>
+  <div class="login" *ngIf="loginOn">
+    <div class="login-container" *ngIf="forgotPasswrodBool === false">
+      <h2 class="login-header">ავტორიზაცია</h2>
+      <form (ngSubmit)="login()">
+        <div class="login-inputs">
+          <input
+            type="text"
+            placeholder="ელ. ფოსტა/ ტელეფონის ნომერი"
+            name="emailLogin"
+            [(ngModel)]="emailLogin"
+          />
+          <input
+            type="text"
+            placeholder="პაროლი"
+            name="passwordLogin"
+            [(ngModel)]="passwordLogin"
+          />
+          <button type="button" class="login-forgot" (click)="forgotPassword()">
+            პაროლის აღდგენა
+          </button>
+        </div>
+        <button type="submit" class="login-btn">შესვლა</button>
+        <p class="err-msg-login">{{ errLoginMsg }}</p>
+        <p class="suc-msg-login">{{ succLoginMsg }}</p>
+      </form>
+      <button class="login-close" type="button" (click)="closeLogin()">
+        X
+      </button>
+    </div>
+    <div class="login-container" *ngIf="forgotPasswrodBool">
+      <h2 class="login-header">პაროლის აღდგენა</h2>
+      <form (ngSubmit)="sendConfrim()">
+        <div class="login-inputs">
+          <input
+            type="text"
+            placeholder="ელ. ფოსტა/ ტელეფონის ნომერი"
+            name="emailLogin"
+            [(ngModel)]="emailLogin"
+          />
+          <input
+            type="text"
+            placeholder="აქტივაციის კოდი"
+            name="confirmationToken"
+            [(ngModel)]="confirmationToken"
+          />
+          <div class="update-password" *ngIf="confirmationTokenBool">
+            <input
+              type="text"
+              placeholder="პაროლი"
+              name="updatePassword"
+              [(ngModel)]="updatePassword"
+            />
+            <input
+              type="text"
+              placeholder="პაროლი"
+              name="updatePassword2"
+              [(ngModel)]="updatePassword2"
+            />
+          </div>
+          <button type="button" class="login-forgot" (click)="forgotPassword()">
+            ავტორიზაცია
+          </button>
+        </div>
+        <button type="submit" class="login-btn" *ngIf="!confirmationTokenBool">
+          მეილზე გაგზავნა
+        </button>
+        <button
+          type="button"
+          class="login-btn"
+          *ngIf="confirmationTokenBool"
+          (click)="update()"
+        >
+          აღდგენა
+        </button>
+        <p class="err-msg-login">{{ errLoginMsg }}</p>
+        <p class="suc-msg-login">{{ succLoginMsg }}</p>
+      </form>
+      <button class="login-close" type="button" (click)="closeLogin()">
+        X
+      </button>
     </div>
   </div>
 </header>
