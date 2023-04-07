@@ -1,7 +1,7 @@
 <section class="register">
   <div class="container">
     <h2 class="title">რეგისტრაცია</h2>
-    <form class="form" (ngSubmit)="confirmToken()">
+    <form class="form">
       <div class="form-input">
         <label>სახელი</label>
         <div class="sub-input">
@@ -18,7 +18,7 @@
         <label>Email</label>
         <div class="sub-input">
           <input type="email" name="email" id="email" [(ngModel)]="email" />
-          <button type="button" (click)="sendEmial()">
+          <button type="button">
             <img
               src="../../assets/Images/mail-right-arrow-svgrepo-com 1.png"
               alt="mail"
@@ -51,19 +51,6 @@
         </div>
       </div>
       <div class="form-input">
-        <label>აქტივაციის კოდი</label>
-        <div class="sub-input">
-          <span class="abs-dur">ვადა 30 წთ</span>
-          <input
-            type="text"
-            name="confirmationToken"
-            id="confirmationToken"
-            [(ngModel)]="confirmationToken"
-          />
-        </div>
-        <span class="err2" style="margin-top: 10px">{{ errConfirm }}</span>
-      </div>
-      <div class="form-input">
         <label>პაროლი</label>
         <div class="sub-input">
           <input
@@ -74,6 +61,20 @@
             placeholder="( მინიმუმ 8 სიმბოლო : @ 7 , )"
           />
         </div>
+      </div>
+
+      <div class="form-input">
+        <label>კატეგორია</label>
+        <div class="sub-input">
+          <input
+            type="text"
+            name="confirmationToken"
+            id="confirmationToken"
+            [(ngModel)]="confirmationToken"
+            placeholder="ანესთეზიოლოგი / თერაპევტი ან სხვა..."
+          />
+        </div>
+        <span class="err2" style="margin-top: 10px">{{ errConfirm }}</span>
       </div>
       <div class="form-input">
         <label for="file">ფოტოსურათი</label>

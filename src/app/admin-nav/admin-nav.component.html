@@ -1,0 +1,19 @@
+<section class="admin-nav">
+  <div class="admin-container">
+    <div class="lines">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <a routerLink="/adminregister" routerLinkActive="active-link"
+      >რეგისტრაცია</a
+    >
+    <a routerLink="/category" routerLinkActive="active-link">კატეგორიები</a>
+    <a
+      href="/"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="active-link"
+      >ექიმები</a
+    >
+  </div>
+</section>

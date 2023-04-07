@@ -64,7 +64,7 @@
             [(ngModel)]="emailLogin"
           />
           <input
-            type="text"
+            type="password"
             placeholder="პაროლი"
             name="passwordLogin"
             [(ngModel)]="passwordLogin"
@@ -99,13 +99,13 @@
           />
           <div class="update-password" *ngIf="confirmationTokenBool">
             <input
-              type="text"
+              type="password"
               placeholder="პაროლი"
               name="updatePassword"
               [(ngModel)]="updatePassword"
             />
             <input
-              type="text"
+              type="password"
               placeholder="პაროლი"
               name="updatePassword2"
               [(ngModel)]="updatePassword2"

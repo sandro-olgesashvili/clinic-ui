@@ -90,6 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       } else {
         localStorage.setItem('user', JSON.stringify(x));
         this.ls = JSON.parse(localStorage.getItem('user')!);
+        this.dataSharingService.sendBool(true, this.ls);
         this.loginOn = false;
         this.isUserLoggedIn = true;
       }
@@ -136,7 +137,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.confirmationTokenBool = false;
           this.succLoginMsg = 'პაროლი აღდგენილია';
           setTimeout(() => {
-            this.errLoginMsg = '';
+            this.succLoginMsg = '';
           }, 2000);
         } else {
           this.errLoginMsg = 'მომხმარებელი ან აქტივაციის კოდი არასწორია';

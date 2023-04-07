@@ -12,6 +12,8 @@ import { SearchComponent } from './search/search.component';
 import { HeroComponent } from './hero/hero.component';
 import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
+import { AdminRegisterComponent } from './admin-register/admin-register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FooterComponent } from './footer/footer.component';
     SearchComponent,
     HeroComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    AdminNavComponent,
+    AdminRegisterComponent
   ],
   imports: [
     BrowserModule,
