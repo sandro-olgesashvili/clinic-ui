@@ -1,7 +1,25 @@
+<div class="role-container" *ngIf="roleBool">
+  <div class="role">
+    <h3 (click)="onSelectRole('admin')">ადმინისტატორი</h3>
+    <h3 (click)="onSelectRole('doctor')">ექიმი</h3>
+    <h3 (click)="onSelectRole('user')">მომხმარებელი</h3>
+  </div>
+</div>
 <section class="register">
   <div class="container">
-    <h2 class="title">რეგისტრაცია</h2>
-    <form class="form">
+    <h2 class="title">
+      რეგისტრაცია
+      {{
+        role === "doctor"
+          ? "ექიმი"
+          : role === "admin"
+          ? "ადმინისტრატორი"
+          : role === "user"
+          ? "მომხამრებელი"
+          : ""
+      }}
+    </h2>
+    <form class="form" (ngSubmit)="onCreateUser()">
       <div class="form-input">
         <label>სახელი</label>
         <div class="sub-input">
@@ -17,13 +35,13 @@
       <div class="form-input">
         <label>Email</label>
         <div class="sub-input">
-          <input type="email" name="email" id="email" [(ngModel)]="email" />
-          <button type="button">
-            <img
-              src="../../assets/Images/mail-right-arrow-svgrepo-com 1.png"
-              alt="mail"
-            />
-          </button>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            [(ngModel)]="email"
+            placeholder="Email"
+          />
         </div>
       </div>
       <div class="form-input">
@@ -63,16 +81,20 @@
         </div>
       </div>
 
-      <div class="form-input">
+      <div class="form-input" *ngIf="role === 'doctor'">
         <label>კატეგორია</label>
         <div class="sub-input">
-          <input
-            type="text"
-            name="confirmationToken"
-            id="confirmationToken"
-            [(ngModel)]="confirmationToken"
-            placeholder="ანესთეზიოლოგი / თერაპევტი ან სხვა..."
-          />
+          <select
+            name="category"
+            id="category"
+            [(ngModel)]="category"
+            (change)="onSelect()"
+            required
+          >
+            <option *ngFor="let item of categories" [value]="item.categoryName">
+              {{ item.categoryName }}
+            </option>
+          </select>
         </div>
         <span class="err2" style="margin-top: 10px">{{ errConfirm }}</span>
       </div>
