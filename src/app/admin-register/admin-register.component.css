@@ -1,3 +1,6 @@
+* {
+  font-family: "FiraGO", sans-serif;
+}
 .container {
   max-width: 1621px;
   margin: 0 auto;

@@ -7,7 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "FiraGO", sans-serif;
 }
 li {
   list-style: none;
@@ -15,4 +14,31 @@ li {
 
 a {
   text-decoration: none;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: #f0faff !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td:last-child {
+  text-align: center !important;
+}
+
+.p-datatable-table {
+  margin-top: 30px;
+  border-radius: 10px !important;
+}
+.p-datatable {
+  background: #ffffff !important;
+  box-shadow: 0px 4px 30px rgba(5, 51, 84, 0.05) !important;
+  border-radius: 10px !important;
+  border: none;
+}
+
+.p-datatable .p-datatable-footer {
+  padding: 10px;
+}
+
+.p-fluid .p-inputtext {
+  margin-top: 15px;
 }

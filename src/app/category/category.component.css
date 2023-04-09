@@ -1,0 +1,16 @@
+.card {
+  max-width: 1621px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 31px;
+
+  color: #18a4e1;
+  padding-top: 60px;
+  padding-bottom: 43px;
+}
