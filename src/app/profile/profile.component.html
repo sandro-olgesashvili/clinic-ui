@@ -1,0 +1,38 @@
+<section class="profile-container">
+  <div class="profile-calendar">
+    <div class="profile">
+      <div class="profile-info">
+        <img
+          src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+          alt="doc"
+          class="doctor-img"
+        />
+        <h3>{{ profile.name }} {{ profile.surname }}</h3>
+        <span>ექიმი</span>
+        <span>{{ profile.categoryName }}</span>
+      </div>
+      <div class="profile-change">
+        <div>
+          <div>
+            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
+            <span>პიარდი ნომერი:</span>
+          </div>
+          <span>{{ profile.idNumber }}</span>
+        </div>
+        <div>
+          <div>
+            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
+            <span>Email:</span>
+          </div>
+          <span>{{ profile.email }}</span>
+        </div>
+        <div>
+          <div>
+            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
+            <span>პაროლის შეცვლა:</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

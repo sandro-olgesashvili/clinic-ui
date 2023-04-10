@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from '../interface/category';
+import { Category, CategoryNumbers } from '../interface/category';
+import { Doctors } from '../interface/doctors';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,11 @@ export class CategoryService {
     'https://localhost:7162/api/Admin/removeCategory?CategoryName=';
 
   private updateCategoryUrl = 'https://localhost:7162/api/Admin/updateCategory';
+
+  private getCategoryNumbersUrl =
+    'https://localhost:7162/api/User/doctorCategory';
+
+  private getDoctorsUrl = 'https://localhost:7162/api/User/doctor';
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +40,13 @@ export class CategoryService {
 
   updateCategory(data: Category): Observable<any> {
     return this.http.put(this.updateCategoryUrl, data);
+  }
+
+  getCategoryNumbers(): Observable<CategoryNumbers[]> {
+    return this.http.get<CategoryNumbers[]>(this.getCategoryNumbersUrl);
+  }
+
+  getDoctors(): Observable<Doctors[]> {
+    return this.http.get<Doctors[]>(this.getDoctorsUrl);
   }
 }

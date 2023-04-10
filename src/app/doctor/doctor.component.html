@@ -1,1 +1,44 @@
-<p>doctor works!</p>
+<section class="doctor">
+  <div class="categoryNameTotal">
+    <h3>კატეგორიები</h3>
+    <div
+      *ngFor="let item of categoryNames"
+      [class]="
+        selected === item.categoryName ? 'total-name active' : 'total-name'
+      "
+      (click)="onSelect(item.categoryName)"
+    >
+      <span>( {{ item.total }} )</span>
+      <span>{{ item.categoryName }}</span>
+      <div class="arrow" *ngIf="item.categoryName === selected">
+        <img src="../../assets/Images/Vector.png" alt="v" />
+      </div>
+    </div>
+    <div class="show-more">
+      <h4>სრულად ნახვა</h4>
+      <img src="../../assets/Images/Vector.png" alt="vect" />
+    </div>
+  </div>
+  <div class="doctor-grid">
+    <div *ngFor="let doctor of doctors" class="grid-item">
+      <img
+        src="../../assets/Images/pin-svgrepo-com 4.png"
+        alt="pin"
+        class="pin"
+      />
+      <img
+        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        alt="as"
+        class="avatar"
+      />
+      <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
+      <p>{{ doctor.categoryName }}</p>
+      <a [routerLink]="['/profile', doctor.id]">
+        <button>
+          მიღებაზე ჩაწერა
+          <img src="../../assets/Images/Vector.png" alt="Vector" />
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

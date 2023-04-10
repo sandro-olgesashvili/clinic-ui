@@ -39,6 +39,7 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CategoryComponent } from './category/category.component';
 import { DoctorComponent } from './doctor/doctor.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DoctorComponent } from './doctor/doctor.component';
     AdminRegisterComponent,
     CategoryComponent,
     DoctorComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
