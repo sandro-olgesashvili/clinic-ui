@@ -1,38 +1,81 @@
-<section class="profile-container">
+<p-toast></p-toast>
+
+<section class="profile-container" *ngIf="profile.id">
   <div class="profile-calendar">
-    <div class="profile">
-      <div class="profile-info">
-        <img
-          src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
-          alt="doc"
-          class="doctor-img"
-        />
-        <h3>{{ profile.name }} {{ profile.surname }}</h3>
-        <span>ექიმი</span>
-        <span>{{ profile.categoryName }}</span>
+    <div class="profile-add">
+      <div class="profile">
+        <div class="profile-info">
+          <img
+            src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+            alt="doc"
+            class="doctor-img"
+          />
+          <h3>{{ profile.name }} {{ profile.surname }}</h3>
+          <span>ექიმი</span>
+          <span>{{ profile.categoryName }}</span>
+        </div>
+        <div class="profile-change">
+          <div class="change-det">
+            <div>
+              <img
+                src="../../assets/Images/edit-svgrepo-com 6.png"
+                alt="edit"
+              />
+              <span>პირადი ნომერი:</span>
+            </div>
+            <span>{{ profile.idNumber }}</span>
+          </div>
+          <div class="change-det">
+            <div>
+              <img
+                src="../../assets/Images/edit-svgrepo-com 6.png"
+                alt="edit"
+              />
+              <span>Email:</span>
+            </div>
+            <span>{{ profile.email }}</span>
+          </div>
+          <div class="change-det">
+            <div>
+              <img
+                src="../../assets/Images/edit-svgrepo-com 6.png"
+                alt="edit"
+                (click)="onPassword()"
+              />
+              <span>პაროლის შეცვლა</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="profile-change">
-        <div>
-          <div>
-            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
-            <span>პიარდი ნომერი:</span>
-          </div>
-          <span>{{ profile.idNumber }}</span>
-        </div>
-        <div>
-          <div>
-            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
-            <span>Email:</span>
-          </div>
-          <span>{{ profile.email }}</span>
-        </div>
-        <div>
-          <div>
-            <img src="../../assets/Images/edit-svgrepo-com 6.png" alt="edit" />
-            <span>პაროლის შეცვლა:</span>
-          </div>
-        </div>
+      <div class="add" *ngIf="ls && ls.role === 'admin'">
+        <button>+ დამატება</button>
+        <button>
+          <img
+            src="../../assets/Images/edit-svgrepo-com 6.png"
+            alt="ad"
+            class="edit"
+          />რედაქტირება
+        </button>
+        <button>
+          <img src="../../assets/Images/VectorDel.png" alt="del" class="del" />
+          წაშლა
+        </button>
       </div>
     </div>
   </div>
 </section>
+<div class="form-group" *ngIf="passwordBool">
+  <form class="form" (ngSubmit)="onPasswordChange()">
+    <div class="form-input">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="ახალი პაროლი"
+      />
+    </div>
+    <button type="submit">შეცვლა</button>
+    <button type="button" class="cancel" (click)="onCancel()">X</button>
+  </form>
+</div>

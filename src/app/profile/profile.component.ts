@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorService } from '../service/doctor.service';
 import { DoctorProfile, Doctors } from '../interface/doctors';
+import { AdminControllerService } from '../service/admin-controller.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -19,9 +21,17 @@ export class ProfileComponent implements OnInit {
     role: '',
   };
 
+  passwordBool: boolean = false;
+
+  ls = JSON.parse(localStorage.getItem('user')!);
+
+  password: string = '';
+
   constructor(
     private route: ActivatedRoute,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    private adminControllerService: AdminControllerService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -33,5 +43,28 @@ export class ProfileComponent implements OnInit {
         console.log(this.profile);
       });
     });
+  }
+
+  onPassword() {
+    this.passwordBool = !this.passwordBool;
+  }
+  onCancel() {
+    this.passwordBool = false;
+  }
+
+  onPasswordChange() {
+    this.adminControllerService
+      .passwordChange(this.profile.id, this.password)
+      .subscribe((x) => {
+        if (x) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'პაროლი',
+            detail: 'პაროლი შეცვლილია',
+            life: 3000,
+          });
+          this.passwordBool = false;
+        }
+      });
   }
 }

@@ -12,6 +12,7 @@ export class AdminControllerService {
 
   private createUserUrl = 'https://localhost:7162/api/Admin/addUser';
 
+  private passwordChangeUrl = 'https://localhost:7162/api/Admin/updateUser?';
   constructor(private http: HttpClient) {}
 
   getCategory(): Observable<Category[]> {
@@ -20,5 +21,12 @@ export class AdminControllerService {
 
   createUser(data: AdminCreateUser): Observable<any> {
     return this.http.post(this.createUserUrl, data);
+  }
+
+  passwordChange(id: number, password: string): Observable<any> {
+    return this.http.put(
+      `${this.passwordChangeUrl}Id=${id}&Password=${password}`,
+      ''
+    );
   }
 }
