@@ -6,6 +6,8 @@ import { AdminRegisterComponent } from './admin-register/admin-register.componen
 import { CategoryComponent } from './category/category.component';
 import { AdminGuard } from './service/admin.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminUserControllerComponent } from './admin-user-controller/admin-user-controller.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   },
   { path: 'category', component: CategoryComponent, canActivate: [AdminGuard] },
   { path: 'profile/:id', component: ProfileComponent },
+  { path: 'admin', component: AdminUserControllerComponent },
+  { path: 'myprofile', component: MyProfileComponent },
 ];
 
 @NgModule({

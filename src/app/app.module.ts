@@ -40,6 +40,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CategoryComponent } from './category/category.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminUserControllerComponent } from './admin-user-controller/admin-user-controller.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { ProfileComponent } from './profile/profile.component';
     CategoryComponent,
     DoctorComponent,
     ProfileComponent,
+    AdminUserControllerComponent,
+    MyProfileComponent,
   ],
   imports: [
     BrowserModule,

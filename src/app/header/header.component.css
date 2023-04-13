@@ -57,6 +57,10 @@
   border-radius: 25px;
 }
 
+.login-register div:first-child a span:first-child {
+  color: rgba(24, 164, 225, 1);
+  cursor: pointer;
+}
 .login-register div:first-child span:first-child {
   color: rgba(24, 164, 225, 1);
   cursor: pointer;

@@ -45,7 +45,9 @@
         <span> <a routerLink="/register">რეგისტრაცია</a></span>
       </div>
       <div *ngIf="isUserLoggedIn === true">
-        <span>{{ ls?.name }} {{ ls?.surname }}</span>
+        <a routerLink="myprofile">
+          <span>{{ ls?.name }} {{ ls?.surname }}</span>
+        </a>
         <span> &nbsp;/&nbsp; </span>
         <span (click)="logout()"> გასვლა</span>
       </div>

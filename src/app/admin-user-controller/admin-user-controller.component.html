@@ -1,0 +1,24 @@
+<section class="doctor">
+  <div class="doctor-grid">
+    <div *ngFor="let doctor of doctors" class="grid-item">
+      <img
+        src="../../assets/Images/pin-svgrepo-com 4.png"
+        alt="pin"
+        class="pin"
+      />
+      <img
+        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        alt="as"
+        class="avatar"
+      />
+      <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
+      <p>{{ doctor.categoryName }}</p>
+      <a [routerLink]="['/profile', doctor.id]">
+        <button>
+          Profile
+          <img src="../../assets/Images/Vector.png" alt="Vector" />
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
