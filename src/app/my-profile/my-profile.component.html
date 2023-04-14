@@ -1,1 +1,91 @@
-<p>my-profile works!</p>
+<p-toast></p-toast>
+
+<section class="my-profile">
+  <div class="container">
+    <div class="aboutme">
+      <img
+        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        alt="as"
+        class="avatar"
+      />
+      <div class="user-container">
+        <h3 class="aboutme-role">
+          {{ myProfile.name }} {{ myProfile.surname }}
+        </h3>
+        <div class="for-doctor" *ngIf="myProfile.categoryName">
+          <span>ექიმი</span>
+          <span>{{ myProfile.categoryName }}</span>
+        </div>
+      </div>
+      <div class="aboutme-info">
+        <h4>პირადი ნომერი :</h4>
+        <h5>{{ myProfile.idNumber }}</h5>
+      </div>
+      <div class="aboutme-info">
+        <h4 (click)="emailCloseOpne()">Email :</h4>
+        <h5>{{ myProfile.email }}</h5>
+      </div>
+      <div class="aboutme-info">
+        <button class="change-pas" (click)="cancelOpen()">
+          პაროლის შეცვლა
+        </button>
+      </div>
+      <!-- <div class="aboutme-info">
+        <h4>ჩემი ჯავშანი :</h4>
+        <h5>( 1 )</h5>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<div class="form-group" *ngIf="passwordBool">
+  <form class="form" (ngSubmit)="onUpdatePasswrod()">
+    <div class="form-input">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="ახალი პაროლი"
+      />
+    </div>
+    <button type="submit">შეცვლა</button>
+    <button type="button" class="cancel" (click)="cancelOpen()">X</button>
+  </form>
+</div>
+
+<div class="form-group" *ngIf="emailBool">
+  <form class="form" (ngSubmit)="onEmailChange()">
+    <div class="form-input">
+      <input
+        type="text"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="მიუთითეთ Email"
+        [disabled]="!sendCode"
+      />
+      <div class="email-inputs" *ngIf="!sendCode">
+        <input
+          type="text"
+          id="confirmationToken"
+          name="confirmationToken"
+          [(ngModel)]="confirmationToken"
+          placeholder="ძველი მეილის კოდი"
+        />
+        <input
+          type="text"
+          id="confirmationTokenEmail"
+          name="confirmationTokenEmail"
+          [(ngModel)]="confirmationTokenEmail"
+          placeholder="ახალი მეილის კოდი"
+        />
+      </div>
+    </div>
+    <button type="button" *ngIf="sendCode" (click)="onEmailSend()">
+      კოდის გაგზავნა
+    </button>
+    <button type="submit" *ngIf="!sendCode">შეცვლა</button>
+    <button type="button" class="cancel" (click)="emailCloseOpne()">X</button>
+  </form>
+</div>

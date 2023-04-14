@@ -5,6 +5,7 @@ import { User } from '../interface/register';
 import { DatasharingService } from '../service/datasharing.service';
 import { LoginService } from '../service/login.service';
 import { UpdatePasswordService } from '../service/update-password.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private dataSharingService: DatasharingService,
     private loginService: LoginService,
-    private updatePasswordService: UpdatePasswordService
+    private updatePasswordService: UpdatePasswordService,
+    private router: Router
   ) {
     this.subscription = this.dataSharingService.getBool().subscribe((x) => {
       this.isUserLoggedIn = x;
@@ -60,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.dataSharingService.sendBool(false, null);
     localStorage.removeItem('user');
+    this.router.navigate(['/']);
   }
 
   closeLogin() {

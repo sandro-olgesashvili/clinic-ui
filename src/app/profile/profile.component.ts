@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit {
     if (this.confirmationToken.trim() || this.confirmationTokenEmail.trim()) {
       this.adminControllerService.updateEmail(data).subscribe((x) => {
         if (x) {
-          this.sendCode = false;
+          this.sendCode = true;
           this.emailBool = false;
           this.profile.email = this.email;
           this.messageService.add({

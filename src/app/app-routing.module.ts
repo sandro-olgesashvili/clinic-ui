@@ -19,8 +19,16 @@ const routes: Routes = [
     canActivate: [AdminGuard],
   },
   { path: 'category', component: CategoryComponent, canActivate: [AdminGuard] },
-  { path: 'profile/:id', component: ProfileComponent },
-  { path: 'admin', component: AdminUserControllerComponent },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminUserControllerComponent,
+    canActivate: [AdminGuard],
+  },
   { path: 'myprofile', component: MyProfileComponent },
 ];
 
