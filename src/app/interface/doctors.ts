@@ -6,6 +6,7 @@ export interface Doctors {
   idNumber: string;
   categoryName: string;
   role: string;
+  isPinned?: boolean;
 }
 
 export interface DoctorProfile {

@@ -31,4 +31,14 @@ export class AdminUserControllerComponent implements OnInit {
       this.doctors = this.doctors2.filter((x) => x.categoryName === select);
     }
   }
+
+  onChangePin(data: Doctors) {
+    const sendData = { id: data.id };
+    let doctor: Doctors[] = this.doctors.filter((x) => x.id === data.id);
+
+    this.adminControllerService.changePin(sendData).subscribe((x) => {
+      doctor[0].isPinned = x.isPinned;
+      console.log(x);
+    });
+  }
 }

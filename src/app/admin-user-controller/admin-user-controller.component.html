@@ -2,9 +2,18 @@
   <div class="doctor-grid">
     <div *ngFor="let doctor of doctors" class="grid-item">
       <img
+        (click)="onChangePin(doctor)"
+        src="../../assets/Images/pin-svgrepo-com 1.png"
+        alt="pin"
+        class="pin"
+        *ngIf="doctor.isPinned"
+      />
+      <img
+        (click)="onChangePin(doctor)"
         src="../../assets/Images/pin-svgrepo-com 4.png"
         alt="pin"
         class="pin"
+        *ngIf="!doctor.isPinned"
       />
       <img
         src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"

@@ -8,6 +8,7 @@ import {
   AdminUpdateEmailChange,
   UserDelete,
 } from '../interface/admin-create-user';
+import { Doctors } from '../interface/doctors';
 
 @Injectable({
   providedIn: 'root',
@@ -28,14 +29,16 @@ export class AdminControllerService {
   private getAllUserUrl = 'https://localhost:7162/api/Admin/GetAllUsers';
 
   private deleteUserUrl = 'https://localhost:7162/api/Admin/deleteUser?Id=';
+
+  private isPinnedUrl = 'https://localhost:7162/api/Admin/changePin';
   constructor(private http: HttpClient) {}
 
   getCategory(): Observable<Category[]> {
     return this.http.get<Category[]>(this.getCategoryUrl);
   }
 
-  createUser(data: AdminCreateUser): Observable<any> {
-    return this.http.post(this.createUserUrl, data);
+  createUser(data: AdminCreateUser): Observable<Doctors> {
+    return this.http.post<Doctors>(this.createUserUrl, data);
   }
 
   passwordChange(id: number, password: string): Observable<any> {
@@ -52,11 +55,15 @@ export class AdminControllerService {
     return this.http.put<boolean | string>(this.updateEmailUrl, data);
   }
 
-  getAllUser(): Observable<any> {
-    return this.http.get(this.getAllUserUrl);
+  getAllUser(): Observable<Doctors[]> {
+    return this.http.get<Doctors[]>(this.getAllUserUrl);
   }
 
   deleteUser(data: UserDelete): Observable<boolean> {
     return this.http.delete<boolean>(`${this.deleteUserUrl}${data.id}`);
+  }
+
+  changePin(data: { id: number }): Observable<any> {
+    return this.http.put(this.isPinnedUrl, data);
   }
 }
