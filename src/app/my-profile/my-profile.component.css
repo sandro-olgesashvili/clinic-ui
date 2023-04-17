@@ -9,6 +9,12 @@
   padding-top: 41px;
 }
 
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
 .avatar {
   width: 157px;
   height: 157px;
@@ -155,4 +161,48 @@ button {
   padding-top: 30px;
 
   padding-bottom: 15px;
+}
+
+.appointment {
+  flex: 1;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.date-picker-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-block: 40px;
+}
+
+.appointment-grid div {
+  text-align: center;
+  border: 1px solid #ecf2f8;
+  background: #ecf2f8;
+  border-radius: 25px;
+  padding: 16px 23px;
+  cursor: pointer;
+}
+
+.appointment-grid div h2 {
+  font-weight: normal;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #053354;
 }

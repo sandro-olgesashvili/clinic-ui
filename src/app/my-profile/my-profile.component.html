@@ -30,10 +30,39 @@
           პაროლის შეცვლა
         </button>
       </div>
-      <!-- <div class="aboutme-info">
+      <div class="aboutme-info" *ngIf="myProfile.role === 'user'">
         <h4>ჩემი ჯავშანი :</h4>
-        <h5>( 1 )</h5>
-      </div> -->
+        <h5>( {{ appointmentArr.length }} )</h5>
+      </div>
+    </div>
+    <div class="appointment">
+      <div class="appointment-grid">
+        <div *ngFor="let appointment of appointmentArr">
+          <h2>
+            {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
+            {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
+          </h2>
+        </div>
+      </div>
+      <div>
+        <form class="date-picker-form" (ngSubmit)="onDatePick()">
+          <div class="date-picker">
+            <p-calendar
+              [showTime]="true"
+              inputId="startDate"
+              [(ngModel)]="startDate"
+              [ngModelOptions]="{ standalone: true }"
+            ></p-calendar>
+            <p-calendar
+              [showTime]="true"
+              inputId="endDate"
+              [(ngModel)]="endDate"
+              [ngModelOptions]="{ standalone: true }"
+            ></p-calendar>
+          </div>
+          <button type="submit">დამატება</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>

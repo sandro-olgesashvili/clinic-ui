@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { SendEmailChange, UpdateEmailChange } from '../interface/email-update';
 import { Router } from '@angular/router';
 import { DatasharingService } from '../service/datasharing.service';
+import { Appointment, AppointmentSend } from '../interface/appointment';
 
 @Component({
   selector: 'app-my-profile',
@@ -21,6 +22,11 @@ export class MyProfileComponent implements OnInit {
     categoryName: null,
     role: '',
   };
+
+  startDate!: Date;
+  endDate!: Date;
+
+  appointmentArr: Appointment[] = [];
 
   passwordBool: boolean = false;
 
@@ -48,8 +54,11 @@ export class MyProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getMyProfile().subscribe((x) => {
       this.myProfile = x;
-      console.log(x);
       x.role === 'doctor' ? (this.role = 'ექიმი') : '';
+    });
+    this.authService.appointmentGet().subscribe((x) => {
+      this.appointmentArr = x;
+      console.log(x);
     });
   }
 
@@ -162,5 +171,21 @@ export class MyProfileComponent implements OnInit {
         life: 3000,
       });
     }
+  }
+
+  onDatePick() {
+    const data: AppointmentSend = {
+      startTime: new Date(
+        this.startDate.getTime() - this.startDate.getTimezoneOffset() * 60000
+      ).toJSON(),
+      endTime: new Date(
+        this.endDate.getTime() - this.endDate.getTimezoneOffset() * 60000
+      ).toJSON(),
+      patientId: null,
+    };
+    this.authService.addAppointment(data).subscribe((x) => {
+      console.log(x);
+      this.appointmentArr = x;
+    });
   }
 }

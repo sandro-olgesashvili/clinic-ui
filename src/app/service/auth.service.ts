@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MyProfile } from '../interface/doctors';
 import { SendEmailChange, UpdateEmailChange } from '../interface/email-update';
+import { Appointment, AppointmentSend } from '../interface/appointment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,11 @@ export class AuthService {
 
   private emailUpdateUrl =
     'https://localhost:7162/api/User/updateDoctorEmailNew';
+
+  private appointmentUrl = 'https://localhost:7162/api/Appointment';
+
+  private addAppointmentUrl =
+    'https://localhost:7162/api/Appointment/addAppointment';
 
   constructor(private http: HttpClient) {}
 
@@ -40,5 +46,13 @@ export class AuthService {
   }
   emailUpdate(data: UpdateEmailChange): Observable<boolean> {
     return this.http.put<boolean>(this.emailUpdateUrl, data);
+  }
+
+  appointmentGet(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(this.appointmentUrl);
+  }
+
+  addAppointment(data: AppointmentSend): Observable<any> {
+    return this.http.post(this.addAppointmentUrl, data);
   }
 }
