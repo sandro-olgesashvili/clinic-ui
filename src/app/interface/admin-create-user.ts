@@ -21,3 +21,12 @@ export interface AdminUpdateEmailChange {
 export interface UserDelete {
   id: number;
 }
+export interface IDoctorAppointment {
+  id?: number;
+}
+export interface IDoctorAppointmentAdd {
+  id?: number;
+  startTime: Date | string;
+  endTime: Date | string;
+  patientId: null | number;
+}

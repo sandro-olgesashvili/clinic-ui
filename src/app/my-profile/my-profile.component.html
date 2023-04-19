@@ -32,16 +32,33 @@
       </div>
       <div class="aboutme-info" *ngIf="myProfile.role === 'user'">
         <h4>ჩემი ჯავშანი :</h4>
-        <h5>( {{ appointmentArr.length }} )</h5>
+        <h5>( {{ userAppointment.length }} )</h5>
+      </div>
+      <div class="aboutme-info" *ngIf="myProfile.role === 'doctor'">
+        <h4>დაჯავშნილია :</h4>
+        <h5>( {{ reserved.length }} )</h5>
       </div>
     </div>
-    <div class="appointment">
+    <div class="appointment" *ngIf="ls.role === 'doctor'">
       <div class="appointment-grid">
-        <div *ngFor="let appointment of appointmentArr">
+        <div
+          *ngFor="let appointment of appointmentArr"
+          [ngClass]="
+            appointment.patientId === null
+              ? 'appointment-item'
+              : 'appointment-item res'
+          "
+        >
           <h2>
             {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
             {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
           </h2>
+          <img
+            src="../../assets/Images/VectorDel.png"
+            alt="del"
+            class="appointment-del"
+            (click)="onDelete(appointment.id)"
+          />
         </div>
       </div>
       <div>
@@ -62,6 +79,32 @@
           </div>
           <button type="submit">დამატება</button>
         </form>
+      </div>
+    </div>
+    <div class="appointment" *ngIf="ls.role !== 'doctor'">
+      <h2 class="header-user">
+        ჩემი ჯავშანი <span> ( {{ userAppointment.length }} )</span>
+      </h2>
+      <div class="appointment-grid">
+        <div
+          *ngFor="let appointment of userAppointment"
+          [ngClass]="
+            appointment.patientId === null
+              ? 'appointment-item'
+              : 'appointment-item res'
+          "
+        >
+          <h2>
+            {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
+            {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
+          </h2>
+          <img
+            src="../../assets/Images/VectorDel.png"
+            alt="del"
+            class="appointment-del"
+            (click)="onDeleteUserApp(appointment.id)"
+          />
+        </div>
       </div>
     </div>
   </div>

@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MyProfile } from '../interface/doctors';
 import { SendEmailChange, UpdateEmailChange } from '../interface/email-update';
-import { Appointment, AppointmentSend } from '../interface/appointment';
+import {
+  Appointment,
+  AppointmentDel,
+  AppointmentSend,
+} from '../interface/appointment';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +27,15 @@ export class AuthService {
 
   private addAppointmentUrl =
     'https://localhost:7162/api/Appointment/addAppointment';
+
+  private delAppointmentUrl =
+    'https://localhost:7162/api/Appointment/deleteAppointment?Id=';
+
+  private userAppointmentUrl =
+    'https://localhost:7162/api/Appointment/userAppointment';
+
+  private userAppointmentDelUrl =
+    'https://localhost:7162/api/Appointment/userAppointmentRemove';
 
   constructor(private http: HttpClient) {}
 
@@ -54,5 +67,17 @@ export class AuthService {
 
   addAppointment(data: AppointmentSend): Observable<any> {
     return this.http.post(this.addAppointmentUrl, data);
+  }
+
+  delAppointment(data: AppointmentDel): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.delAppointmentUrl}${data.id}`);
+  }
+
+  getUserAppointment(): Observable<any> {
+    return this.http.get(this.userAppointmentUrl);
+  }
+
+  delUserAppointment(data: AppointmentDel): Observable<boolean> {
+    return this.http.put<boolean>(this.userAppointmentDelUrl, data);
   }
 }

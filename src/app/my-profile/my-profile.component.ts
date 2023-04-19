@@ -5,7 +5,11 @@ import { MessageService } from 'primeng/api';
 import { SendEmailChange, UpdateEmailChange } from '../interface/email-update';
 import { Router } from '@angular/router';
 import { DatasharingService } from '../service/datasharing.service';
-import { Appointment, AppointmentSend } from '../interface/appointment';
+import {
+  Appointment,
+  AppointmentDel,
+  AppointmentSend,
+} from '../interface/appointment';
 
 @Component({
   selector: 'app-my-profile',
@@ -28,6 +32,9 @@ export class MyProfileComponent implements OnInit {
 
   appointmentArr: Appointment[] = [];
 
+  userAppointment: Appointment[] = [];
+  reserved: Appointment[] = [];
+
   passwordBool: boolean = false;
 
   password: string = '';
@@ -44,6 +51,8 @@ export class MyProfileComponent implements OnInit {
 
   confirmationTokenEmail: string = '';
 
+  ls: any;
+
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
@@ -52,14 +61,24 @@ export class MyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.ls = JSON.parse(localStorage.getItem('user')!);
+
     this.authService.getMyProfile().subscribe((x) => {
       this.myProfile = x;
       x.role === 'doctor' ? (this.role = 'ექიმი') : '';
     });
-    this.authService.appointmentGet().subscribe((x) => {
-      this.appointmentArr = x;
-      console.log(x);
-    });
+    if (this.ls.role === 'doctor') {
+      this.authService.appointmentGet().subscribe((x) => {
+        this.appointmentArr = x;
+        this.reserved = x.filter((x) => x.patientId !== null);
+        console.log(x);
+      });
+    } else {
+      this.authService.getUserAppointment().subscribe((x) => {
+        this.userAppointment = x;
+        console.log(x);
+      });
+    }
   }
 
   onUpdatePasswrod() {
@@ -174,18 +193,46 @@ export class MyProfileComponent implements OnInit {
   }
 
   onDatePick() {
-    const data: AppointmentSend = {
-      startTime: new Date(
-        this.startDate.getTime() - this.startDate.getTimezoneOffset() * 60000
-      ).toJSON(),
-      endTime: new Date(
-        this.endDate.getTime() - this.endDate.getTimezoneOffset() * 60000
-      ).toJSON(),
-      patientId: null,
+    if (this.startDate && this.endDate) {
+      const data: AppointmentSend = {
+        startTime: new Date(
+          this.startDate.getTime() - this.startDate.getTimezoneOffset() * 60000
+        ).toJSON(),
+        endTime: new Date(
+          this.endDate.getTime() - this.endDate.getTimezoneOffset() * 60000
+        ).toJSON(),
+        patientId: null,
+      };
+      this.authService.addAppointment(data).subscribe((x) => {
+        console.log(x);
+        this.appointmentArr = x;
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'error',
+        detail: 'შეავსეთ ყველა ველი',
+        life: 3000,
+      });
+    }
+  }
+
+  onDelete(dataId: number) {
+    const data: AppointmentDel = {
+      id: dataId,
     };
-    this.authService.addAppointment(data).subscribe((x) => {
-      console.log(x);
-      this.appointmentArr = x;
+    this.authService.delAppointment(data).subscribe((x) => {
+      this.appointmentArr = this.appointmentArr.filter((x) => x.id !== data.id);
+    });
+  }
+  onDeleteUserApp(dataId: number) {
+    const data: AppointmentDel = {
+      id: dataId,
+    };
+    this.authService.delUserAppointment(data).subscribe((x) => {
+      this.userAppointment = this.userAppointment.filter(
+        (x) => x.id !== data.id
+      );
     });
   }
 }

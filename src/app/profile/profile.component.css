@@ -204,3 +204,85 @@ button {
 
   padding-bottom: 15px;
 }
+
+.profile-add {
+  margin-right: 41px;
+}
+
+.appointment {
+  flex: 1;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.date-picker-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.appointment-grid div {
+  text-align: center;
+  border: 1px solid #ecf2f8;
+  background: #ecf2f8;
+  border-radius: 25px;
+  padding: 16px 23px;
+  cursor: pointer;
+}
+
+.appointment-grid div h2 {
+  font-weight: normal;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #053354;
+}
+.appointment-item {
+  position: relative;
+}
+
+.appointment-del {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  background-color: #ff93a6;
+  padding: 5px;
+  border-radius: 30%;
+  cursor: pointer;
+}
+
+.res {
+  background-color: #dafaee !important;
+  color: rgba(58, 207, 153, 1) !important;
+}
+
+.header-user {
+  margin-left: 35px;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 31px;
+
+  color: #18a4e1;
+}
+.header-user span {
+  color: rgba(5, 51, 84, 0.3);
+}
+
+.date-picker-form {
+  margin-top: 45px;
+}

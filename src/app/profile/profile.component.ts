@@ -9,6 +9,7 @@ import {
   AdminUpdateEmailChange,
   UserDelete,
 } from '../interface/admin-create-user';
+import { Appointment, AppointmentSend } from '../interface/appointment';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,14 @@ export class ProfileComponent implements OnInit {
   };
 
   role?: string;
+
+  startDate?: Date;
+
+  endDate?: Date;
+
+  appointmentArr: Appointment[] = [];
+
+  userAppointment: Appointment[] = [];
 
   passwordBool: boolean = false;
 
@@ -63,6 +72,13 @@ export class ProfileComponent implements OnInit {
           : x.role === 'user'
           ? (this.role = 'მომხმარებელი')
           : (this.role = 'ექიმი');
+        this.adminControllerService
+          .doctorAppointments(data)
+          .subscribe((app) => {
+            if (app && this.role === 'ექიმი') {
+              this.appointmentArr = app;
+            }
+          });
       });
     });
   }
@@ -187,5 +203,43 @@ export class ProfileComponent implements OnInit {
         life: 3000,
       });
     }
+  }
+
+  onDatePick() {
+    if (this.startDate && this.endDate) {
+      const data: AppointmentSend = {
+        id: this.profile.id,
+        startTime: new Date(
+          this.startDate.getTime() - this.startDate.getTimezoneOffset() * 60000
+        ).toJSON(),
+        endTime: new Date(
+          this.endDate.getTime() - this.endDate.getTimezoneOffset() * 60000
+        ).toJSON(),
+        patientId: null,
+      };
+      this.adminControllerService.addDoctorAppointments(data).subscribe((x) => {
+        this.appointmentArr = x;
+        this.startDate = undefined;
+        this.endDate = undefined;
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'error',
+        detail: 'შეავსეთ ყველა ველი',
+        life: 3000,
+      });
+    }
+  }
+
+  onDelDoctorAppointments(id: number) {
+    const data = {
+      appointmentId: id,
+    };
+    this.adminControllerService.delDoctorAppointments(data).subscribe((x) => {
+      if (x) {
+        this.appointmentArr = this.appointmentArr.filter((x) => x.id !== id);
+      }
+    });
   }
 }

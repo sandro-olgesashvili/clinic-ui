@@ -63,6 +63,75 @@
         </button>
       </div>
     </div>
+
+    <div class="appointment" *ngIf="role === 'ექიმი'">
+      <div class="appointment-grid">
+        <div
+          *ngFor="let appointment of appointmentArr"
+          [ngClass]="
+            appointment.patientId === null
+              ? 'appointment-item'
+              : 'appointment-item res'
+          "
+        >
+          <h2>
+            {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
+            {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
+          </h2>
+          <img
+            src="../../assets/Images/VectorDel.png"
+            alt="del"
+            class="appointment-del"
+            (click)="onDelDoctorAppointments(appointment.id)"
+          />
+        </div>
+      </div>
+      <div *ngIf="role === 'ექიმი'">
+        <form class="date-picker-form" (ngSubmit)="onDatePick()">
+          <div class="date-picker">
+            <p-calendar
+              [showTime]="true"
+              inputId="startDate"
+              [(ngModel)]="startDate"
+              [ngModelOptions]="{ standalone: true }"
+            ></p-calendar>
+            <p-calendar
+              [showTime]="true"
+              inputId="endDate"
+              [(ngModel)]="endDate"
+              [ngModelOptions]="{ standalone: true }"
+            ></p-calendar>
+          </div>
+          <button type="submit">დამატება</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="appointment" *ngIf="role === 'მომხმარებელი'">
+      <h2 class="header-user">
+        ჩემი ჯავშანი <span> ( {{ userAppointment.length }} )</span>
+      </h2>
+      <div class="appointment-grid">
+        <div
+          *ngFor="let appointment of userAppointment"
+          [ngClass]="
+            appointment.patientId === null
+              ? 'appointment-item'
+              : 'appointment-item res'
+          "
+        >
+          <h2>
+            {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
+            {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
+          </h2>
+          <img
+            src="../../assets/Images/VectorDel.png"
+            alt="del"
+            class="appointment-del"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <div class="form-group" *ngIf="passwordBool">

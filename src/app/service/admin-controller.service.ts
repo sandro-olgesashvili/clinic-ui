@@ -6,9 +6,12 @@ import {
   AdminCreateUser,
   AdminSendEmailChange,
   AdminUpdateEmailChange,
+  IDoctorAppointment,
+  IDoctorAppointmentAdd,
   UserDelete,
 } from '../interface/admin-create-user';
 import { Doctors } from '../interface/doctors';
+import { Appointment } from '../interface/appointment';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +34,14 @@ export class AdminControllerService {
   private deleteUserUrl = 'https://localhost:7162/api/Admin/deleteUser?Id=';
 
   private isPinnedUrl = 'https://localhost:7162/api/Admin/changePin';
+
+  private doctorAppointmentsUrl =
+    'https://localhost:7162/api/Admin/doctorAppointments?Id=';
+
+  private addDoctorAppointmentsUrl =
+    'https://localhost:7162/api/Admin/doctorAppointments';
+  private delDoctorAppointmentsUrl =
+    'https://localhost:7162/api/Admin/doctorAppointmentDelete?AppointmentId=';
   constructor(private http: HttpClient) {}
 
   getCategory(): Observable<Category[]> {
@@ -65,5 +76,23 @@ export class AdminControllerService {
 
   changePin(data: { id: number }): Observable<any> {
     return this.http.put(this.isPinnedUrl, data);
+  }
+
+  doctorAppointments(data: IDoctorAppointment): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(
+      `${this.doctorAppointmentsUrl}${data.id}`
+    );
+  }
+
+  addDoctorAppointments(
+    data: IDoctorAppointmentAdd
+  ): Observable<Appointment[]> {
+    return this.http.post<Appointment[]>(this.addDoctorAppointmentsUrl, data);
+  }
+
+  delDoctorAppointments(data: { appointmentId: number }): Observable<boolean> {
+    return this.http.delete<boolean>(
+      `${this.delDoctorAppointmentsUrl}${data.appointmentId}`
+    );
   }
 }

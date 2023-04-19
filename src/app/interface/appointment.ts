@@ -9,4 +9,9 @@ export interface AppointmentSend {
   startTime: Date | string;
   endTime: Date | string;
   patientId: null | number;
+  id?: number;
+}
+
+export interface AppointmentDel {
+  id: Number;
 }
