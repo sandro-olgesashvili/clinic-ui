@@ -10,6 +10,7 @@ import {
   UserDelete,
 } from '../interface/admin-create-user';
 import { Appointment, AppointmentSend } from '../interface/appointment';
+import { AdminControllerUserService } from '../service/admin-controller-user.service';
 
 @Component({
   selector: 'app-profile',
@@ -58,7 +59,8 @@ export class ProfileComponent implements OnInit {
     private doctorService: DoctorService,
     private adminControllerService: AdminControllerService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private adminControllerUserService: AdminControllerUserService
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +79,13 @@ export class ProfileComponent implements OnInit {
           .subscribe((app) => {
             if (app && this.role === 'ექიმი') {
               this.appointmentArr = app;
+            }
+          });
+        this.adminControllerUserService
+          .getUserAppointment(data)
+          .subscribe((user) => {
+            if (user && this.role === 'მომხმარებელი') {
+              this.userAppointment = user;
             }
           });
       });
@@ -101,6 +110,19 @@ export class ProfileComponent implements OnInit {
     this.adminControllerService.deleteUser(data).subscribe((x) => {
       if (x) {
         this.router.navigate(['/admin']);
+      }
+    });
+  }
+
+  onDeleteUser(id: number) {
+    const data: UserDelete = {
+      id: id,
+    };
+    this.adminControllerUserService.delUserAppointment(data).subscribe((x) => {
+      if (x) {
+        this.userAppointment = this.userAppointment.filter(
+          (item) => item.id !== data.id
+        );
       }
     });
   }

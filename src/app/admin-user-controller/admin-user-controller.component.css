@@ -11,6 +11,7 @@
   align-items: flex-start;
   justify-content: center;
   gap: 60px;
+  flex-direction: column;
 }
 
 .doctor-grid {
@@ -193,4 +194,11 @@
   top: 11px;
   right: 20px;
   cursor: pointer;
+}
+
+.role-title {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 31px;
+  color: #18a4e1;
 }

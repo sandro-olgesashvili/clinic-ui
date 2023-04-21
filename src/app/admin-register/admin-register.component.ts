@@ -34,9 +34,11 @@ export class AdminRegisterComponent implements OnInit {
   surname: string = '';
   password: string = '';
   confirmationToken: string = '';
+  description: string = '';
 
   formData: FormData = new FormData();
   file!: File | null;
+  filePdf!: File | null;
 
   constructor(
     private adminControllerService: AdminControllerService,
@@ -53,6 +55,11 @@ export class AdminRegisterComponent implements OnInit {
     this.file = null;
     this.file = event.target.files[0];
     console.log(this.file);
+  }
+  onChangePdf(event: any) {
+    this.filePdf = null;
+    this.filePdf = event.target.files[0];
+    console.log(this.filePdf);
   }
 
   onSelectRole(data: string) {

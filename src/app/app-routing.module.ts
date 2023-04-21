@@ -8,11 +8,11 @@ import { AdminGuard } from './service/admin.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminUserControllerComponent } from './admin-user-controller/admin-user-controller.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'clinic', component: RegisterComponent },
   {
     path: 'adminregister',
     component: AdminRegisterComponent,
@@ -29,7 +29,11 @@ const routes: Routes = [
     component: AdminUserControllerComponent,
     canActivate: [AdminGuard],
   },
-  { path: 'myprofile', component: MyProfileComponent },
+  {
+    path: 'myprofile',
+    component: MyProfileComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

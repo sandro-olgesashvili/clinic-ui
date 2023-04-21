@@ -22,12 +22,13 @@ export class RegisterComponent implements OnInit {
   succMSg: string = '';
   errConfirm: string = '';
 
-  name!: string;
-  email!: string;
-  idNumber!: string;
-  surname!: string;
-  password!: string;
+  name: string = '';
+  email: string = '';
+  idNumber: string = '';
+  surname: string = '';
+  password: string = '';
   confirmationToken: string = '';
+  imageName: string = '';
 
   formData: FormData = new FormData();
   file!: File | null;
@@ -44,29 +45,85 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onChange(event: any) {
-    this.file = null;
-    this.file = event.target.files[0];
-    console.log(this.file);
+  onChange($event: any) {
+    if ($event.target.files) {
+      this.file = null;
+      this.file = $event.target.files[0];
+      this.imageName = $event.target.files[0].name;
+      this.formData.append('ImageFile', $event.target.files[0]);
+      console.log(this.file);
+      console.log(this.imageName);
+    }
   }
 
   sendEmial() {
-    let data: Register = {
-      name: this.name,
-      email: this.email,
-      idNumber: this.idNumber,
-      surname: this.surname,
-      password: this.password,
-    };
+    if (!this.nameReg.test(this.name)) {
+      if (this.name.trim().length < 1) {
+        this.errMsg = 'მიუთითეთ სახელი';
 
-    if (
-      this.emailReg.test(this.email) &&
-      this.nameReg.test(this.name) &&
-      this.idNumberReg.test(this.idNumber) &&
-      this.passwordReg.test(this.password) &&
-      this.nameReg.test(this.surname)
-    ) {
-      this.registerService.register(data).subscribe((x) => {
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      } else {
+        this.errMsg = 'სახელი არასწორია';
+
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      }
+    } else if (!this.emailReg.test(this.email)) {
+      if (this.email.trim().length < 1) {
+        this.errMsg = 'მიუთითეთ მეილი';
+
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      } else {
+        this.errMsg = 'მეილი არასწორია';
+
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      }
+    } else if (!this.idNumberReg.test(this.idNumber)) {
+      if (this.idNumber.trim().length < 1) {
+        this.errMsg = 'მიუთითეთ პირადი ნომერი';
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      } else {
+        this.errMsg = 'მიუთითეთ სწორი პირადი ნომერი';
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      }
+    } else if (!this.passwordReg.test(this.password)) {
+      this.errMsg = 'სცადეთ სხვა პაროლი';
+
+      setTimeout(() => {
+        this.errMsg = '';
+      }, 2000);
+    } else if (!this.nameReg.test(this.surname)) {
+      this.errMsg = 'მიუთითეთ გვარი';
+
+      setTimeout(() => {
+        this.errMsg = '';
+      }, 2000);
+    } else if (!this.file) {
+      this.errMsg = 'ატვირთეთ სურათი';
+
+      setTimeout(() => {
+        this.errMsg = '';
+      }, 2000);
+    } else {
+      this.formData.append('name', this.name);
+      this.formData.append('email', this.email);
+      this.formData.append('idNumber', this.idNumber);
+      this.formData.append('surname', this.surname);
+      this.formData.append('password', this.password);
+      this.formData.append('imageName', this.imageName);
+
+      this.registerService.register(this.formData).subscribe((x) => {
         if (x) {
           this.succMSg = 'შეიყვანეთ აქტივაციის კოდი';
           setTimeout(() => {
@@ -80,12 +137,6 @@ export class RegisterComponent implements OnInit {
           }, 2000);
         }
       });
-    } else {
-      this.errMsg = 'შეავსეთ ყველა ველი';
-
-      setTimeout(() => {
-        this.errMsg = '';
-      }, 2000);
     }
   }
 

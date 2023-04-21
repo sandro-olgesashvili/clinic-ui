@@ -120,6 +120,41 @@
           </div>
         </div>
       </div>
+      <div class="form-input" *ngIf="role === 'doctor'">
+        <label for="filePdf">CV</label>
+        <div class="file-cont">
+          <label for="filePdf" class="file-label"
+            ><img
+              src="../../assets/Images/document-new-svgrepo-com 1.png"
+              alt=""
+          /></label>
+          <p *ngIf="filePdf" class="file-p">{{ filePdf.name }}</p>
+          <div class="sub-input">
+            <input
+              type="file"
+              id="filePdf"
+              name="filePdf"
+              accept="application/pdf"
+              [(ngModel)]="filePdf"
+              class="file-up"
+              (change)="onChangePdf($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-input" *ngIf="role === 'doctor'">
+        <label>აღწერა</label>
+        <div class="sub-input">
+          <textarea
+            name="description"
+            [(ngModel)]="description"
+            id=""
+            cols="60"
+            rows="2"
+            class="description"
+          ></textarea>
+        </div>
+      </div>
       <div class="sub-btn">
         <button type="submit">რეგისტრაცია</button>
       </div>

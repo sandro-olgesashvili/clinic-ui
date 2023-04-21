@@ -30,3 +30,6 @@ export interface IDoctorAppointmentAdd {
   endTime: Date | string;
   patientId: null | number;
 }
+export interface IUserAppointment {
+  id?: number;
+}

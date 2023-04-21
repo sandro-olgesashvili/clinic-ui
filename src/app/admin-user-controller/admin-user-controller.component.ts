@@ -11,14 +11,20 @@ export class AdminUserControllerComponent implements OnInit {
   doctors: Doctors[] = [];
   doctors2: Doctors[] = [];
 
+  users: Doctors[] = [];
+
+  admin: Doctors[] = [];
+
   selected: any;
 
   constructor(private adminControllerService: AdminControllerService) {}
 
   ngOnInit(): void {
     this.adminControllerService.getAllUser().subscribe((x) => {
-      this.doctors = x;
+      this.doctors = x.filter((doc) => doc.role === 'doctor');
       this.doctors2 = x;
+      this.users = x.filter((user) => user.role === 'user');
+      this.admin = x.filter((admin) => admin.role === 'admin');
     });
   }
 

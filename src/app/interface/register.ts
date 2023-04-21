@@ -15,4 +15,5 @@ export interface User {
   role: string;
   name: string;
   surname: string;
+  image?: string;
 }

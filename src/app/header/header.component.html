@@ -44,7 +44,16 @@
         <span> &nbsp;/&nbsp; </span>
         <span> <a routerLink="/register">რეგისტრაცია</a></span>
       </div>
-      <div *ngIf="isUserLoggedIn === true">
+      <div *ngIf="isUserLoggedIn === true" class="islogged">
+        <img
+          [src]="
+            ls?.image
+              ? ls?.image
+              : 'https://pic.onlinewebfonts.com/svg/img_258083.png'
+          "
+          alt="doc"
+          class="avatar-img"
+        />
         <a routerLink="myprofile">
           <span>{{ ls?.name }} {{ ls?.surname }}</span>
         </a>

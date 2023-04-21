@@ -195,3 +195,14 @@ select {
   font-size: 16px;
   line-height: 19px;
 }
+
+.description {
+  border-radius: 30px;
+  resize: vertical;
+  padding-inline: 30px;
+  padding-block: 5px;
+}
+
+.description:focus {
+  outline: rgba(5, 51, 84, 0.7);
+}

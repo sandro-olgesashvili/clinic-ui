@@ -52,9 +52,15 @@
 }
 
 .login-register div:first-child {
-  padding: 11px 23px 15px 25px;
+  padding: 15px 26px;
   background: #f0faff;
   border-radius: 25px;
+}
+
+.islogged {
+  padding: 0px !important;
+  padding-right: 26px !important;
+  padding-block: 3px !important;
 }
 
 .login-register div:first-child a span:first-child {
@@ -200,4 +206,12 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 21px;
+  object-fit: cover;
 }

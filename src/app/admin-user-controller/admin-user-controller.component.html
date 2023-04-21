@@ -1,4 +1,5 @@
 <section class="doctor">
+  <h1 class="role-title">ექიმი</h1>
   <div class="doctor-grid">
     <div *ngFor="let doctor of doctors" class="grid-item">
       <img
@@ -15,6 +16,42 @@
         class="pin"
         *ngIf="!doctor.isPinned"
       />
+      <img
+        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        alt="as"
+        class="avatar"
+      />
+      <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
+      <p>{{ doctor.categoryName }}</p>
+      <a [routerLink]="['/profile', doctor.id]">
+        <button>
+          Profile
+          <img src="../../assets/Images/Vector.png" alt="Vector" />
+        </button>
+      </a>
+    </div>
+  </div>
+  <h1 class="role-title">მომხმარებელი</h1>
+  <div class="doctor-grid">
+    <div *ngFor="let doctor of users" class="grid-item">
+      <img
+        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        alt="as"
+        class="avatar"
+      />
+      <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
+      <p>{{ doctor.categoryName }}</p>
+      <a [routerLink]="['/profile', doctor.id]">
+        <button>
+          Profile
+          <img src="../../assets/Images/Vector.png" alt="Vector" />
+        </button>
+      </a>
+    </div>
+  </div>
+  <h1 *ngIf="admin.length > 0" class="role-title">ადმინისტრატორი</h1>
+  <div class="doctor-grid">
+    <div *ngFor="let doctor of admin" class="grid-item">
       <img
         src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
         alt="as"

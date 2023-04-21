@@ -16,7 +16,7 @@ export class RegisterService {
     'Content-Type': 'application/json',
   });
 
-  register(data: Register): Observable<any> {
+  register(data: FormData): Observable<any> {
     return this.http.post(this.registerUrl, data);
   }
 
