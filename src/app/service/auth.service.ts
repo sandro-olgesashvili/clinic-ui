@@ -8,6 +8,8 @@ import {
   AppointmentDel,
   AppointmentSend,
 } from '../interface/appointment';
+import { IUserAppointment } from '../interface/admin-create-user';
+import { DoctorDetail, UserDetail } from '../interface/user';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +39,10 @@ export class AuthService {
   private userAppointmentDelUrl =
     'https://localhost:7162/api/Appointment/userAppointmentRemove';
 
+  private getMoreDetailUrl =
+    'https://localhost:7162/api/User/getMoreDetail?Id=';
+
+  private getMoreUrl = 'https://localhost:7162/api/User/getMore?Id=';
   constructor(private http: HttpClient) {}
 
   getToken() {
@@ -79,5 +85,13 @@ export class AuthService {
 
   delUserAppointment(data: AppointmentDel): Observable<boolean> {
     return this.http.put<boolean>(this.userAppointmentDelUrl, data);
+  }
+
+  getMoreDetail(data: IUserAppointment): Observable<UserDetail> {
+    return this.http.get<UserDetail>(`${this.getMoreDetailUrl}${data.id}`);
+  }
+
+  getMore(data: IUserAppointment): Observable<DoctorDetail> {
+    return this.http.get<DoctorDetail>(`${this.getMoreUrl}${data.id}`);
   }
 }

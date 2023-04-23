@@ -20,7 +20,7 @@ export class AdminRegisterComponent implements OnInit {
 
   roleBool: boolean = true;
 
-  role: string | null = null;
+  role: string = '';
   category: string | null = null;
   categories: Category[] = [];
 
@@ -35,6 +35,8 @@ export class AdminRegisterComponent implements OnInit {
   password: string = '';
   confirmationToken: string = '';
   description: string = '';
+  imageName: string = '';
+  pdfName: string = '';
 
   formData: FormData = new FormData();
   file!: File | null;
@@ -53,12 +55,16 @@ export class AdminRegisterComponent implements OnInit {
 
   onChange(event: any) {
     this.file = null;
+    this.imageName = event.target.files[0].name;
     this.file = event.target.files[0];
+    this.formData.append('ImageFile', event.target.files[0]);
     console.log(this.file);
   }
   onChangePdf(event: any) {
     this.filePdf = null;
+    this.pdfName = event.target.files[0].name;
     this.filePdf = event.target.files[0];
+    this.formData.append('PdfFile', event.target.files[0]);
     console.log(this.filePdf);
   }
 
@@ -81,6 +87,19 @@ export class AdminRegisterComponent implements OnInit {
       category: this.category,
     };
 
+    this.formData.append('name', this.name);
+    this.formData.append('email', this.email);
+    this.formData.append('idNumber', this.idNumber);
+    this.formData.append('surname', this.surname);
+    this.formData.append('password', this.password);
+    this.formData.append('imageName', this.imageName);
+    this.formData.append('pdfName', this.pdfName);
+    this.formData.append('description', this.description);
+    if (this.category !== null) {
+      this.formData.append('category', this.category);
+    }
+    this.formData.append('role', this.role);
+
     if (
       !this.name.trim() ||
       !this.surname.trim() ||
@@ -94,7 +113,7 @@ export class AdminRegisterComponent implements OnInit {
         this.errMsg = '';
       }, 2000);
     } else {
-      this.adminControllerService.createUser(data).subscribe((x) => {
+      this.adminControllerService.createUser(this.formData).subscribe((x) => {
         console.log(x);
         this.router.navigate(['/']);
       });

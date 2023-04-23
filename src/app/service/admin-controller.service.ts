@@ -48,7 +48,7 @@ export class AdminControllerService {
     return this.http.get<Category[]>(this.getCategoryUrl);
   }
 
-  createUser(data: AdminCreateUser): Observable<Doctors> {
+  createUser(data: FormData): Observable<Doctors> {
     return this.http.post<Doctors>(this.createUserUrl, data);
   }
 

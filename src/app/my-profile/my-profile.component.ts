@@ -10,6 +10,7 @@ import {
   AppointmentDel,
   AppointmentSend,
 } from '../interface/appointment';
+import { IUserAppointment } from '../interface/admin-create-user';
 
 @Component({
   selector: 'app-my-profile',
@@ -27,8 +28,17 @@ export class MyProfileComponent implements OnInit {
     role: '',
   };
 
-  startDate!: Date;
-  endDate!: Date;
+  details: { name: string; surname: string; des: string; image: string } = {
+    image: '',
+    name: '',
+    surname: '',
+    des: 'lasdasd  adfds  adfsd afads',
+  };
+
+  detailsBool: boolean = false;
+
+  startDate!: Date | undefined;
+  endDate!: Date | undefined;
 
   appointmentArr: Appointment[] = [];
 
@@ -71,12 +81,10 @@ export class MyProfileComponent implements OnInit {
       this.authService.appointmentGet().subscribe((x) => {
         this.appointmentArr = x;
         this.reserved = x.filter((x) => x.patientId !== null);
-        console.log(x);
       });
     } else {
-      this.authService.getUserAppointment().subscribe((x) => {
-        this.userAppointment = x;
-        console.log(x);
+      this.authService.getUserAppointment().subscribe((data) => {
+        this.userAppointment = data;
       });
     }
   }
@@ -204,8 +212,9 @@ export class MyProfileComponent implements OnInit {
         patientId: null,
       };
       this.authService.addAppointment(data).subscribe((x) => {
-        console.log(x);
         this.appointmentArr = x;
+        this.startDate = undefined;
+        this.endDate = undefined;
       });
     } else {
       this.messageService.add({
@@ -233,6 +242,33 @@ export class MyProfileComponent implements OnInit {
       this.userAppointment = this.userAppointment.filter(
         (x) => x.id !== data.id
       );
+    });
+  }
+
+  onClick(data: Appointment) {
+    const sendData: IUserAppointment = {
+      id: data.id,
+    };
+    this.authService.getMoreDetail(sendData).subscribe((x) => {
+      this.detailsBool = true;
+      this.details.image = x.image;
+      this.details.surname = x.surname;
+      this.details.name = x.name;
+    });
+  }
+
+  onClose() {
+    this.detailsBool = false;
+  }
+  onClickMore(data: Appointment) {
+    const sendData: IUserAppointment = {
+      id: data.id,
+    };
+    this.authService.getMore(sendData).subscribe((x) => {
+      this.detailsBool = true;
+      this.details.image = x.image;
+      this.details.surname = x.surname;
+      this.details.name = x.name;
     });
   }
 }

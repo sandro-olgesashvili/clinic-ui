@@ -17,7 +17,11 @@
         *ngIf="!doctor.isPinned"
       />
       <img
-        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        [src]="
+          doctor.imageSrc
+            ? doctor.imageSrc
+            : 'https://pic.onlinewebfonts.com/svg/img_258083.png'
+        "
         alt="as"
         class="avatar"
       />
@@ -35,7 +39,11 @@
   <div class="doctor-grid">
     <div *ngFor="let doctor of users" class="grid-item">
       <img
-        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        [src]="
+          doctor.imageSrc
+            ? doctor.imageSrc
+            : 'https://pic.onlinewebfonts.com/svg/img_258083.png'
+        "
         alt="as"
         class="avatar"
       />
@@ -53,7 +61,11 @@
   <div class="doctor-grid">
     <div *ngFor="let doctor of admin" class="grid-item">
       <img
-        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        [src]="
+          doctor.imageSrc
+            ? doctor.imageSrc
+            : 'https://pic.onlinewebfonts.com/svg/img_258083.png'
+        "
         alt="as"
         class="avatar"
       />

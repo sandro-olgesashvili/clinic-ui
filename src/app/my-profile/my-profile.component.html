@@ -58,6 +58,13 @@
             {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
           </h2>
           <img
+            src="../../assets/Images/document-new-svgrepo-com 1.png"
+            alt="ds"
+            class="appointment-detail"
+            *ngIf="appointment.patientId"
+            (click)="onClick(appointment)"
+          />
+          <img
             src="../../assets/Images/VectorDel.png"
             alt="del"
             class="appointment-del"
@@ -86,7 +93,7 @@
       </div>
     </div>
     <div class="appointment" *ngIf="ls.role !== 'doctor'">
-      <h2 class="header-user">
+      <h2 class="header-user" *ngIf="myProfile.role === 'user'">
         ჩემი ჯავშანი <span> ( {{ userAppointment.length }} )</span>
       </h2>
       <div class="appointment-grid">
@@ -102,6 +109,13 @@
             {{ appointment.startTime | date : "dd/MM/yyyy HH:mm" }} -
             {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
           </h2>
+          <img
+            src="../../assets/Images/document-new-svgrepo-com 1.png"
+            alt="ds"
+            class="appointment-detail"
+            *ngIf="appointment.patientId"
+            (click)="onClickMore(appointment)"
+          />
           <img
             src="../../assets/Images/VectorDel.png"
             alt="del"
@@ -164,4 +178,12 @@
     <button type="submit" *ngIf="!sendCode">შეცვლა</button>
     <button type="button" class="cancel" (click)="emailCloseOpne()">X</button>
   </form>
+</div>
+
+<div class="details-box" *ngIf="detailsBool" (click)="onClose()">
+  <div class="details">
+    <img [src]="details.image" alt="avatar" />
+    <h4>{{ details.name }} {{ details.surname }}</h4>
+    <p><span>აღწერა:</span> {{ details.des }}</p>
+  </div>
 </div>

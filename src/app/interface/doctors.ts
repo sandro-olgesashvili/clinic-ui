@@ -7,6 +7,9 @@ export interface Doctors {
   categoryName: string;
   role: string;
   isPinned?: boolean;
+  imageSrc?: string | null;
+  pdfSrc?: string | null;
+  description?: string | null;
 }
 
 export interface DoctorProfile {

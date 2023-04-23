@@ -7,10 +7,12 @@ import { MessageService } from 'primeng/api';
 import {
   AdminSendEmailChange,
   AdminUpdateEmailChange,
+  IUserAppointment,
   UserDelete,
 } from '../interface/admin-create-user';
 import { Appointment, AppointmentSend } from '../interface/appointment';
 import { AdminControllerUserService } from '../service/admin-controller-user.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +28,18 @@ export class ProfileComponent implements OnInit {
     idNumber: '',
     categoryName: '',
     role: '',
+    imageSrc: '',
+    pdfSrc: '',
   };
+
+  details: { name: string; surname: string; des: string; image: string } = {
+    image: '',
+    name: '',
+    surname: '',
+    des: 'lasdasd  adfds  adfsd afads',
+  };
+
+  detailsBool: boolean = false;
 
   role?: string;
 
@@ -35,6 +48,8 @@ export class ProfileComponent implements OnInit {
   endDate?: Date;
 
   appointmentArr: Appointment[] = [];
+
+  resApp: Appointment[] = [];
 
   userAppointment: Appointment[] = [];
 
@@ -60,7 +75,8 @@ export class ProfileComponent implements OnInit {
     private adminControllerService: AdminControllerService,
     private messageService: MessageService,
     private router: Router,
-    private adminControllerUserService: AdminControllerUserService
+    private adminControllerUserService: AdminControllerUserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +95,7 @@ export class ProfileComponent implements OnInit {
           .subscribe((app) => {
             if (app && this.role === 'ექიმი') {
               this.appointmentArr = app;
+              this.resApp = app.filter((x) => x.patientId !== null);
             }
           });
         this.adminControllerUserService
@@ -262,6 +279,21 @@ export class ProfileComponent implements OnInit {
       if (x) {
         this.appointmentArr = this.appointmentArr.filter((x) => x.id !== id);
       }
+    });
+  }
+  onClose() {
+    this.detailsBool = false;
+  }
+
+  onClick(data: Appointment) {
+    const sendData: IUserAppointment = {
+      id: data.id,
+    };
+    this.authService.getMoreDetail(sendData).subscribe((x) => {
+      this.detailsBool = true;
+      this.details.image = x.image;
+      this.details.surname = x.surname;
+      this.details.name = x.name;
     });
   }
 }

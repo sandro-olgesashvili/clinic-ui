@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class DoctorService {
   private getDoctorProfileUrl =
     'https://localhost:7162/api/User/getDoctorProfile?Id=';
+
   constructor(private http: HttpClient) {}
 
   getDoctorProfile(data: DoctorProfile): Observable<Doctors> {

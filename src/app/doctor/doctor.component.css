@@ -117,8 +117,6 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  /* identical to box height */
-
   color: #053354;
 }
 
@@ -193,4 +191,190 @@
   top: 11px;
   right: 20px;
   cursor: pointer;
+}
+
+.popup-doctor {
+  flex: 1;
+  position: relative;
+}
+
+.reg-log {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(5, 51, 84, 0.2);
+  border-radius: 10px;
+  padding: 18px 32px;
+}
+
+.reg-log p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: rgba(5, 51, 84, 1);
+}
+
+.reg-log p:first-child {
+  margin-bottom: 5px;
+  color: #ff2c52;
+}
+
+.doctor-profile {
+  background: #ffffff;
+  border: 1px solid #ecf2f8;
+  box-shadow: 0px 4px 30px rgba(5, 51, 84, 0.05);
+  border-radius: 10px;
+  padding: 45px 48px;
+  margin-bottom: 51px;
+}
+
+.doctor-profile-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.doctor-profile-info-avatar {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #ecf2f8;
+
+  justify-content: center;
+}
+
+.doctor-profile-info-avatar img {
+  margin-right: 41px;
+  width: 157px;
+  height: 157px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.doctor-profile-info-avatar div {
+  width: max-content;
+  padding-right: 103px;
+}
+.doctor-profile-info-avatar div h2 {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26px;
+  padding-bottom: 30px;
+  color: #053354;
+}
+.doctor-profile-info-avatar div h3 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: rgba(5, 51, 84, 0.3);
+}
+
+.doctor-profile-info p {
+  padding-left: 51px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: rgba(5, 51, 84, 1);
+}
+
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-block: 40px;
+}
+
+.appointment-grid div {
+  text-align: center;
+  border: 1px solid #ecf2f8;
+  background: #ecf2f8;
+  border-radius: 25px;
+  padding: 16px 23px;
+  cursor: pointer;
+}
+
+.appointment-grid div h2 {
+  font-weight: normal;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #053354;
+}
+.appointment-item {
+  position: relative;
+}
+
+.appointment-add {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  background-color: rgba(218, 250, 238, 1);
+  padding: 8px 10px;
+  border-radius: 10%;
+  cursor: pointer;
+  border: none;
+}
+
+.res .appointment-add {
+  display: none;
+}
+
+.res {
+  background-color: #ff93a6 !important;
+  color: #ff93a6 !important;
+}
+
+.selected {
+  border: 3px solid #3acf99 !important;
+}
+
+.appointment-box {
+  background: #ffffff;
+  box-shadow: 0px 4px 30px rgba(5, 51, 84, 0.2);
+  border-radius: 10px;
+  padding: 25px 31px;
+  position: absolute;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.appointment-box p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: rgba(5, 51, 84, 1);
+}
+
+.appointment-box p:first-child {
+  color: #3acf99;
+  margin-bottom: 10px;
+}
+
+.appointment-box button {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  background: #3acf99;
+  border-radius: 50px;
+  border: none;
+  padding: 14px 42px;
+  color: #ffffff;
+  margin-top: 15px;
+  flex: 1;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+textarea {
+  margin-top: 15px;
+  border: 1px solid #ecf2f8;
+  border-radius: 10px;
+  resize: none;
+  padding: 10px;
 }

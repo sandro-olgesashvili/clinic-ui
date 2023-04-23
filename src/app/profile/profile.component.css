@@ -287,3 +287,66 @@ button {
 .date-picker-form {
   margin-top: 45px;
 }
+
+.resApp {
+  text-align: center !important;
+}
+
+.appointment-detail {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.details-box {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 51, 84, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.details {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 600px;
+}
+
+.details img {
+  width: 157px;
+  height: 157px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.details h4 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #053354;
+}
+
+.details p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  color: #053354;
+}
+
+.details p span {
+  color: rgba(58, 207, 153, 1);
+}

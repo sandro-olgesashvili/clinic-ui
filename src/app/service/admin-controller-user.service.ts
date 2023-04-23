@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUserAppointment } from '../interface/admin-create-user';
+import { Appointment } from '../interface/appointment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,10 @@ export class AdminControllerUserService {
 
   constructor(private http: HttpClient) {}
 
-  getUserAppointment(data: IUserAppointment): Observable<any> {
-    return this.http.get(`${this.getUserAppointmentUrl}${data.id}`);
+  getUserAppointment(data: IUserAppointment): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(
+      `${this.getUserAppointmentUrl}${data.id}`
+    );
   }
   delUserAppointment(data: IUserAppointment): Observable<boolean> {
     return this.http.delete<boolean>(`${this.delUserAppointmentUrl}${data.id}`);

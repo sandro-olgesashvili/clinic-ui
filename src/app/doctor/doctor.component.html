@@ -19,7 +19,7 @@
       <img src="../../assets/Images/Vector.png" alt="vect" />
     </div>
   </div>
-  <div class="doctor-grid">
+  <div class="doctor-grid" *ngIf="doctorsBool">
     <div *ngFor="let doctor of doctors" class="grid-item">
       <img
         src="../../assets/Images/pin-svgrepo-com 1.png"
@@ -34,16 +34,70 @@
         *ngIf="!doctor.isPinned"
       />
       <img
-        src="https://as2.ftcdn.net/v2/jpg/03/30/33/29/1000_F_330332917_MO0x1tcYedbGxUM4wgATwyOkU7xY5wEI.jpg"
+        [src]="
+          doctor.imageSrc
+            ? doctor.imageSrc
+            : 'https://pic.onlinewebfonts.com/svg/img_258083.png'
+        "
         alt="as"
         class="avatar"
       />
       <h3>{{ doctor.name }} {{ doctor.surname }}</h3>
       <p>{{ doctor.categoryName }}</p>
-      <button>
+      <button (click)="onClick(doctor)">
         მიღებაზე ჩაწერა
         <img src="../../assets/Images/Vector.png" alt="Vector" />
       </button>
+    </div>
+  </div>
+  <div *ngIf="!doctorsBool" class="popup-doctor">
+    <div class="doctor-profile">
+      <div class="doctor-profile-info">
+        <div class="doctor-profile-info-avatar">
+          <img [src]="doctor.imageSrc" alt="avatar" />
+          <div>
+            <h2>{{ doctor.name }} {{ doctor.surname }}</h2>
+            <h3>{{ doctor.categoryName }}</h3>
+          </div>
+        </div>
+        <p>
+          {{ doctor.description }}
+        </p>
+      </div>
+    </div>
+    <div class="appointment-grid">
+      <div
+        *ngFor="let app of appointments"
+        [ngClass]="
+          app.id === selectedId
+            ? 'appointment-item selected'
+            : app.patientId == null
+            ? 'appointment-item'
+            : 'appointment-item res'
+        "
+      >
+        <h2>
+          {{ app.startTime | date : "dd/MM/yyyy HH:mm" }} -
+          {{ app.endTime | date : "dd/MM/yyyy HH:mm" }}
+        </h2>
+        <button class="appointment-add" (click)="onSel(app)">+ დაჯავშნა</button>
+      </div>
+    </div>
+    <div class="reg-log" *ngIf="logReg">
+      <p>დასაჯავშნად გთხოვთ გაიაროთ</p>
+      <p>ავტორიზაცია ან რეგისტრაცია.</p>
+    </div>
+    <div class="appointment-box" *ngIf="selectedId">
+      <p>გსურთ ვიზიტის დაჯავნშნა ?</p>
+      <p>შეგიძლიათ მიუთუთოთ თქვენი პორბლემა</p>
+      <textarea
+        name="description"
+        [(ngModel)]="description"
+        id="description"
+        rows="4"
+        placeholder="აღწერა..."
+      ></textarea>
+      <button (click)="onAppointment()">დაჯავშნა</button>
     </div>
   </div>
 </section>
