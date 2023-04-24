@@ -48,6 +48,7 @@ export class DoctorComponent implements OnInit {
   }
 
   onSelect(select: any) {
+    this.selectedId = 0;
     this.doctorsBool = true;
     if (this.selected === select) {
       this.selected = '';
@@ -65,6 +66,7 @@ export class DoctorComponent implements OnInit {
     };
     this.userService.getDoctorProfileForAppointment(sendData).subscribe((x) => {
       this.doctor = x;
+      console.log(x);
     });
     this.userService.getDocotrAppointments(data).subscribe((x) => {
       this.appointments = x;
@@ -85,8 +87,10 @@ export class DoctorComponent implements OnInit {
     };
     if (localStorage.getItem('user')) {
       this.userService.reservation(sendData).subscribe((x) => {
-        this.appointments = x;
-        this.selectedId = 0;
+        if (x) {
+          this.appointments = x;
+          this.selectedId = 0;
+        }
       });
     } else {
       this.logReg = true;

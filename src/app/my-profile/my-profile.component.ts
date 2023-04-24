@@ -32,8 +32,10 @@ export class MyProfileComponent implements OnInit {
     image: '',
     name: '',
     surname: '',
-    des: 'lasdasd  adfds  adfsd afads',
+    des: '',
   };
+
+  loading: boolean = false;
 
   detailsBool: boolean = false;
 
@@ -129,9 +131,11 @@ export class MyProfileComponent implements OnInit {
       email: this.email,
       name: this.myProfile.name,
     };
+    this.loading = true;
     if (this.email.trim()) {
       this.authService.emailSend(data).subscribe((x) => {
         if (x) {
+          this.loading = false;
           this.sendCode = false;
           this.messageService.add({
             severity: 'success',
@@ -140,6 +144,7 @@ export class MyProfileComponent implements OnInit {
             life: 3000,
           });
         } else {
+          this.loading = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Email',
@@ -149,6 +154,7 @@ export class MyProfileComponent implements OnInit {
         }
       });
     } else {
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Email',
@@ -165,9 +171,11 @@ export class MyProfileComponent implements OnInit {
       confirmationToken: this.confirmationToken,
       confirmationTokenEmail: this.confirmationTokenEmail,
     };
+    this.loading = true;
     if (this.confirmationToken.trim() || this.confirmationTokenEmail.trim()) {
       this.authService.emailUpdate(data).subscribe((x) => {
         if (x) {
+          this.loading = false;
           this.sendCode = true;
           this.emailBool = false;
           this.myProfile.email = this.email;
@@ -182,6 +190,7 @@ export class MyProfileComponent implements OnInit {
           localStorage.removeItem('user');
           this.dataSharingService.sendBool(false, null);
         } else {
+          this.loading = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Email',
@@ -191,6 +200,7 @@ export class MyProfileComponent implements OnInit {
         }
       });
     } else {
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Email',

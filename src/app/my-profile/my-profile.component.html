@@ -145,6 +145,14 @@
 </div>
 
 <div class="form-group" *ngIf="emailBool">
+  <div class="loading-box" *ngIf="loading">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
   <form class="form" (ngSubmit)="onEmailChange()">
     <div class="form-input">
       <input
@@ -184,6 +192,6 @@
   <div class="details">
     <img [src]="details.image" alt="avatar" />
     <h4>{{ details.name }} {{ details.surname }}</h4>
-    <p><span>აღწერა:</span> {{ details.des }}</p>
+    <p *ngIf="details.des"><span>აღწერა:</span> {{ details.des }}</p>
   </div>
 </div>

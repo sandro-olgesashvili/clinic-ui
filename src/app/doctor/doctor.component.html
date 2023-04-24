@@ -21,6 +21,10 @@
   </div>
   <div class="doctor-grid" *ngIf="doctorsBool">
     <div *ngFor="let doctor of doctors" class="grid-item">
+      <div class="views-box">
+        <img src="../../assets/Images/views.png" alt="views" class="views" />
+        <span>100</span>
+      </div>
       <img
         src="../../assets/Images/pin-svgrepo-com 1.png"
         alt="pin"
@@ -58,6 +62,7 @@
           <div>
             <h2>{{ doctor.name }} {{ doctor.surname }}</h2>
             <h3>{{ doctor.categoryName }}</h3>
+            <a [href]="doctor.pdfSrc" target="_blank">რეზიუმე</a>
           </div>
         </div>
         <p>

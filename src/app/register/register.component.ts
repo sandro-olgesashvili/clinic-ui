@@ -11,12 +11,14 @@ import { RegisterService } from '../service/register.service';
 })
 export class RegisterComponent implements OnInit {
   emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  nameReg = /^[a-zA-Z]{5,}$/;
+  nameReg = /^[a-zA-Zა-ჰ]{5,}$/;
   idNumberReg = /^[a-zA-Z0-9]{11}$/;
   passwordReg =
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
   isUserLoggedIn!: boolean;
+
+  loading: boolean = false;
 
   errMsg: string = '';
   succMSg: string = '';
@@ -48,11 +50,10 @@ export class RegisterComponent implements OnInit {
   onChange($event: any) {
     if ($event.target.files) {
       this.file = null;
+      this.formData.delete('ImageFile');
       this.file = $event.target.files[0];
       this.imageName = $event.target.files[0].name;
       this.formData.append('ImageFile', $event.target.files[0]);
-      console.log(this.file);
-      console.log(this.imageName);
     }
   }
 
@@ -98,11 +99,19 @@ export class RegisterComponent implements OnInit {
         }, 2000);
       }
     } else if (!this.passwordReg.test(this.password)) {
-      this.errMsg = 'სცადეთ სხვა პაროლი';
+      if (this.password.trim().length < 1) {
+        this.errMsg = 'მიუთითეთ პაროლი';
 
-      setTimeout(() => {
-        this.errMsg = '';
-      }, 2000);
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      } else {
+        this.errMsg = 'სცადეთ სხვა პაროლი';
+
+        setTimeout(() => {
+          this.errMsg = '';
+        }, 2000);
+      }
     } else if (!this.nameReg.test(this.surname)) {
       this.errMsg = 'მიუთითეთ გვარი';
 
@@ -122,16 +131,18 @@ export class RegisterComponent implements OnInit {
       this.formData.append('surname', this.surname);
       this.formData.append('password', this.password);
       this.formData.append('imageName', this.imageName);
+      this.loading = true;
 
       this.registerService.register(this.formData).subscribe((x) => {
         if (x) {
           this.succMSg = 'შეიყვანეთ აქტივაციის კოდი';
+          this.loading = false;
           setTimeout(() => {
             this.succMSg = '';
           }, 2000);
         } else {
           this.errMsg = 'არსებული მეილით მომხმარებელი უკვე არსებობს';
-
+          this.loading = false;
           setTimeout(() => {
             this.errMsg = '';
           }, 2000);

@@ -36,8 +36,10 @@ export class ProfileComponent implements OnInit {
     image: '',
     name: '',
     surname: '',
-    des: 'lasdasd  adfds  adfsd afads',
+    des: '',
   };
+
+  loading: boolean = false;
 
   detailsBool: boolean = false;
 
@@ -150,9 +152,11 @@ export class ProfileComponent implements OnInit {
       email: this.email,
       name: this.profile.name,
     };
+    this.loading = true;
     if (this.email.trim()) {
       this.adminControllerService.sendCodeEmail(data).subscribe((x) => {
         if (x) {
+          this.loading = false;
           this.sendCode = false;
           this.messageService.add({
             severity: 'success',
@@ -161,6 +165,8 @@ export class ProfileComponent implements OnInit {
             life: 3000,
           });
         } else {
+          this.loading = false;
+
           this.messageService.add({
             severity: 'error',
             summary: 'Email',
@@ -170,6 +176,7 @@ export class ProfileComponent implements OnInit {
         }
       });
     } else {
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Email',
@@ -186,10 +193,12 @@ export class ProfileComponent implements OnInit {
       confirmationToken: this.confirmationToken,
       confirmationTokenEmail: this.confirmationTokenEmail,
     };
-
+    this.loading = true;
     if (this.confirmationToken.trim() || this.confirmationTokenEmail.trim()) {
       this.adminControllerService.updateEmail(data).subscribe((x) => {
         if (x) {
+          this.loading = false;
+
           this.sendCode = true;
           this.emailBool = false;
           this.profile.email = this.email;
@@ -200,6 +209,8 @@ export class ProfileComponent implements OnInit {
             life: 3000,
           });
         } else {
+          this.loading = false;
+
           this.messageService.add({
             severity: 'error',
             summary: 'Email',
@@ -209,6 +220,8 @@ export class ProfileComponent implements OnInit {
         }
       });
     } else {
+      this.loading = false;
+
       this.messageService.add({
         severity: 'error',
         summary: 'Email',
@@ -290,6 +303,18 @@ export class ProfileComponent implements OnInit {
       id: data.id,
     };
     this.authService.getMoreDetail(sendData).subscribe((x) => {
+      this.detailsBool = true;
+      this.details.image = x.image;
+      this.details.surname = x.surname;
+      this.details.name = x.name;
+    });
+  }
+
+  onUserClick(data: Appointment) {
+    const sendData: IUserAppointment = {
+      id: data.id,
+    };
+    this.authService.getMore(sendData).subscribe((x) => {
       this.detailsBool = true;
       this.details.image = x.image;
       this.details.surname = x.surname;

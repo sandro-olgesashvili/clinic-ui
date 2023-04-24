@@ -159,6 +159,13 @@
             {{ appointment.endTime | date : "dd/MM/yyyy HH:mm" }}
           </h2>
           <img
+            src="../../assets/Images/document-new-svgrepo-com 1.png"
+            alt="ds"
+            class="appointment-detail"
+            *ngIf="appointment.patientId"
+            (click)="onUserClick(appointment)"
+          />
+          <img
             src="../../assets/Images/VectorDel.png"
             alt="del"
             class="appointment-del"
@@ -185,6 +192,14 @@
   </form>
 </div>
 <div class="form-group" *ngIf="emailBool">
+  <div class="loading-box" *ngIf="loading">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
   <form class="form" (ngSubmit)="onUpdateEmail()">
     <div class="form-input">
       <input
@@ -224,6 +239,6 @@
   <div class="details">
     <img [src]="details.image" alt="avatar" />
     <h4>{{ details.name }} {{ details.surname }}</h4>
-    <p><span>აღწერა:</span> {{ details.des }}</p>
+    <p *ngIf="details.des"><span>აღწერა:</span> {{ details.des }}</p>
   </div>
 </div>
