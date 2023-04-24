@@ -17,6 +17,8 @@ export class UserService {
 
   private reservationUrl = 'https://localhost:7162/api/User/reservation';
 
+  private viewsUrl = 'https://localhost:7162/api/User/views';
+
   constructor(private http: HttpClient) {}
 
   getDoctorProfileForAppointment(data: IUserAppointment): Observable<Doctors> {
@@ -33,5 +35,9 @@ export class UserService {
 
   reservation(data: IUserAppointment): Observable<Appointment[]> {
     return this.http.post<Appointment[]>(this.reservationUrl, data);
+  }
+
+  views(data: IUserAppointment): Observable<boolean> {
+    return this.http.post<boolean>(this.viewsUrl, data);
   }
 }

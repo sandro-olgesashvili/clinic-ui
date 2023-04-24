@@ -398,3 +398,7 @@ textarea {
   align-items: center;
   gap: 10px;
 }
+
+.red {
+  border: 2px solid red;
+}

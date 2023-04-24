@@ -23,7 +23,7 @@
     <div *ngFor="let doctor of doctors" class="grid-item">
       <div class="views-box">
         <img src="../../assets/Images/views.png" alt="views" class="views" />
-        <span>100</span>
+        <span>{{ doctor.views?.toLocaleString() }}</span>
       </div>
       <img
         src="../../assets/Images/pin-svgrepo-com 1.png"
@@ -97,6 +97,7 @@
       <p>შეგიძლიათ მიუთუთოთ თქვენი პორბლემა</p>
       <textarea
         name="description"
+        [ngClass]="redborder ? 'red' : ''"
         [(ngModel)]="description"
         id="description"
         rows="4"

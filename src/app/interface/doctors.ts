@@ -10,6 +10,7 @@ export interface Doctors {
   imageSrc?: string | null;
   pdfSrc?: string | null;
   description?: string | null;
+  views?: number | null;
 }
 
 export interface DoctorProfile {

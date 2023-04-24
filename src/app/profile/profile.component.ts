@@ -13,6 +13,7 @@ import {
 import { Appointment, AppointmentSend } from '../interface/appointment';
 import { AdminControllerUserService } from '../service/admin-controller-user.service';
 import { AuthService } from '../service/auth.service';
+import { UserDetail } from '../interface/user';
 
 @Component({
   selector: 'app-profile',
@@ -32,11 +33,11 @@ export class ProfileComponent implements OnInit {
     pdfSrc: '',
   };
 
-  details: { name: string; surname: string; des: string; image: string } = {
+  details: UserDetail = {
     image: '',
     name: '',
     surname: '',
-    des: '',
+    description: '',
   };
 
   loading: boolean = false;
@@ -303,10 +304,15 @@ export class ProfileComponent implements OnInit {
       id: data.id,
     };
     this.authService.getMoreDetail(sendData).subscribe((x) => {
+      console.log(x, 'asdadasd');
+
       this.detailsBool = true;
-      this.details.image = x.image;
-      this.details.surname = x.surname;
-      this.details.name = x.name;
+
+      this.details = x;
+      // this.details.image = x.image;
+      // this.details.surname = x.surname;
+      // this.details.name = x.name;
+      // this.details.description = x.descriptino;
     });
   }
 
@@ -315,10 +321,12 @@ export class ProfileComponent implements OnInit {
       id: data.id,
     };
     this.authService.getMore(sendData).subscribe((x) => {
+      // console.log(x, 'asdadasd');
       this.detailsBool = true;
       this.details.image = x.image;
       this.details.surname = x.surname;
       this.details.name = x.name;
+      this.details.description = x.description;
     });
   }
 }

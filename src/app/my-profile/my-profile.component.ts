@@ -11,6 +11,7 @@ import {
   AppointmentSend,
 } from '../interface/appointment';
 import { IUserAppointment } from '../interface/admin-create-user';
+import { UserDetail } from '../interface/user';
 
 @Component({
   selector: 'app-my-profile',
@@ -28,11 +29,11 @@ export class MyProfileComponent implements OnInit {
     role: '',
   };
 
-  details: { name: string; surname: string; des: string; image: string } = {
+  details: UserDetail = {
     image: '',
     name: '',
     surname: '',
-    des: '',
+    description: '',
   };
 
   loading: boolean = false;
@@ -261,9 +262,7 @@ export class MyProfileComponent implements OnInit {
     };
     this.authService.getMoreDetail(sendData).subscribe((x) => {
       this.detailsBool = true;
-      this.details.image = x.image;
-      this.details.surname = x.surname;
-      this.details.name = x.name;
+      this.details = x;
     });
   }
 
@@ -276,9 +275,7 @@ export class MyProfileComponent implements OnInit {
     };
     this.authService.getMore(sendData).subscribe((x) => {
       this.detailsBool = true;
-      this.details.image = x.image;
-      this.details.surname = x.surname;
-      this.details.name = x.name;
+      this.details = x;
     });
   }
 }

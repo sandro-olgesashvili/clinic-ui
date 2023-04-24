@@ -5,6 +5,7 @@ import { DoctorProfile, Doctors } from '../interface/doctors';
 import { UserService } from '../service/user.service';
 import { Appointment } from '../interface/appointment';
 import { IUserAppointment } from '../interface/admin-create-user';
+import { Reservation } from '../interface/user';
 
 @Component({
   selector: 'app-doctor',
@@ -17,6 +18,8 @@ export class DoctorComponent implements OnInit {
   doctorsBool: boolean = true;
 
   logReg: boolean = false;
+
+  redborder: boolean = false;
 
   description: string = '';
 
@@ -60,6 +63,7 @@ export class DoctorComponent implements OnInit {
   }
 
   onClick(data: Doctors) {
+    this.onViews(data);
     this.doctorsBool = false;
     const sendData: DoctorProfile = {
       id: data.id,
@@ -82,16 +86,25 @@ export class DoctorComponent implements OnInit {
   }
 
   onAppointment() {
-    const sendData: IUserAppointment = {
+    const sendData: Reservation = {
       id: this.selectedId,
+      description: this.description,
     };
     if (localStorage.getItem('user')) {
-      this.userService.reservation(sendData).subscribe((x) => {
-        if (x) {
-          this.appointments = x;
-          this.selectedId = 0;
-        }
-      });
+      if (this.description.trim()) {
+        this.userService.reservation(sendData).subscribe((x) => {
+          if (x) {
+            this.appointments = x;
+            this.selectedId = 0;
+            this.description = '';
+          }
+        });
+      } else {
+        this.redborder = true;
+        setTimeout(() => {
+          this.redborder = false;
+        }, 3000);
+      }
     } else {
       this.logReg = true;
 
@@ -99,5 +112,18 @@ export class DoctorComponent implements OnInit {
         this.logReg = false;
       }, 5000);
     }
+  }
+  onViews(data: Doctors) {
+    const sendData: IUserAppointment = {
+      id: data.id,
+    };
+
+    this.userService.views(sendData).subscribe((x) => {
+      if (x) {
+        this.doctors.forEach((x) =>
+          x.id === sendData.id ? (x.views = Number(x.views) + 1) : x.views
+        );
+      }
+    });
   }
 }
