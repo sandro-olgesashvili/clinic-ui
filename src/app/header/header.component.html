@@ -77,22 +77,42 @@
       <form (ngSubmit)="login()">
         <div class="login-inputs">
           <input
+            [disabled]="loginTwoFactorBool"
             type="text"
             placeholder="ელ. ფოსტა/ ტელეფონის ნომერი"
             name="emailLogin"
             [(ngModel)]="emailLogin"
           />
           <input
+            [disabled]="loginTwoFactorBool"
             type="password"
             placeholder="პაროლი"
             name="passwordLogin"
             [(ngModel)]="passwordLogin"
           />
+          <input
+            *ngIf="loginTwoFactorBool"
+            type="text"
+            placeholder="კოდი"
+            name="twoFactorStr"
+            [(ngModel)]="twoFactorStr"
+            class="two-factor"
+          />
           <button type="button" class="login-forgot" (click)="forgotPassword()">
             პაროლის აღდგენა
           </button>
         </div>
-        <button type="submit" class="login-btn">შესვლა</button>
+        <button type="submit" class="login-btn" *ngIf="!loginTwoFactorBool">
+          შესვლა
+        </button>
+        <button
+          type="button"
+          class="login-btn"
+          *ngIf="loginTwoFactorBool"
+          (click)="onTwoFactorLogin()"
+        >
+          შესვლა
+        </button>
         <p class="err-msg-login">{{ errLoginMsg }}</p>
         <p class="suc-msg-login">{{ succLoginMsg }}</p>
       </form>

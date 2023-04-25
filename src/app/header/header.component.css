@@ -144,6 +144,10 @@
   margin-bottom: 20px;
 }
 
+.two-factor {
+  margin-top: 20px;
+}
+
 .login-inputs button {
   margin-top: 10px;
   background-color: transparent;

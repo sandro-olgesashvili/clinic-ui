@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Login, Update, UpdatePassword } from '../interface/login';
+import {
+  Login,
+  LoginTwoFactor,
+  Update,
+  UpdatePassword,
+} from '../interface/login';
 import { User } from '../interface/register';
 import { DatasharingService } from '../service/datasharing.service';
 import { LoginService } from '../service/login.service';
@@ -26,12 +31,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
+  loginTwoFactorBool: boolean = false;
+
   forgotPasswrodBool: boolean = false;
 
   confirmationTokenBool: boolean = false;
 
   confirmationToken: string = '';
 
+  twoFactorStr: string = '';
   updatePassword: string = '';
   updatePassword2: string = '';
 
@@ -86,18 +94,56 @@ export class HeaderComponent implements OnInit, OnDestroy {
       email: this.emailLogin,
       password: this.passwordLogin,
     };
+    this.loading = true;
     this.loginService.loginUser(data).subscribe((x) => {
       if (x === false) {
+        this.loading = false;
+
         this.errLoginMsg = 'მომხმარებელი ან პაროლი არასწორია';
         setTimeout(() => {
           this.errLoginMsg = '';
         }, 2000);
+      } else if (x === true) {
+        this.loading = false;
+        this.loginTwoFactorBool = true;
       } else {
+        this.loading = false;
+
         localStorage.setItem('user', JSON.stringify(x));
         this.ls = JSON.parse(localStorage.getItem('user')!);
         this.dataSharingService.sendBool(true, this.ls);
         this.loginOn = false;
         this.isUserLoggedIn = true;
+      }
+    });
+  }
+
+  onTwoFactorLogin() {
+    this.loading = false;
+    let data: LoginTwoFactor = {
+      email: this.emailLogin,
+      password: this.passwordLogin,
+      twoFactorStr: this.twoFactorStr,
+    };
+    this.loginService.twoFactorLogin(data).subscribe((x) => {
+      if (typeof x === 'string') {
+        this.errLoginMsg = 'ბმულის მოქედების ვადა ამოიწურა"';
+        setTimeout(() => {
+          this.errLoginMsg = '';
+        }, 2000);
+      } else if (x) {
+        this.twoFactorStr = '';
+        localStorage.setItem('user', JSON.stringify(x));
+        this.ls = JSON.parse(localStorage.getItem('user')!);
+        this.dataSharingService.sendBool(true, this.ls);
+        this.loginOn = false;
+        this.isUserLoggedIn = true;
+        this.loginTwoFactorBool = false;
+      } else {
+        this.errLoginMsg = 'კოდი არასწორია';
+        setTimeout(() => {
+          this.errLoginMsg = '';
+        }, 2000);
       }
     });
   }

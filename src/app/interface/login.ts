@@ -12,3 +12,9 @@ export interface UpdatePassword {
   password: string;
   confirmationToken: string;
 }
+
+export interface LoginTwoFactor {
+  email: string;
+  password: string;
+  twoFactorStr: string;
+}
