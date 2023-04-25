@@ -42,6 +42,13 @@
         <h4>დაჯავშნილია :</h4>
         <h5>( {{ reserved.length }} )</h5>
       </div>
+      <div class="aboutme-info">
+        <h4>Two-Factor Authentication</h4>
+        <p-inputSwitch
+          [(ngModel)]="myProfile.twoFactor"
+          (onChange)="onChange()"
+        ></p-inputSwitch>
+      </div>
     </div>
     <div class="appointment" *ngIf="ls.role === 'doctor'">
       <div class="appointment-grid">

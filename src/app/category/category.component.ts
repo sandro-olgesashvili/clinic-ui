@@ -63,6 +63,13 @@ export class CategoryComponent implements OnInit {
               detail: 'Product Deleted',
               life: 3000,
             });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'კატეგორია',
+              detail: 'კატეოგრია არ წაიშალა',
+              life: 3000,
+            });
           }
         });
       },

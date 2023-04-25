@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   loginOn: boolean = false;
 
+  loading: boolean = false;
+
   forgotPasswrodBool: boolean = false;
 
   confirmationTokenBool: boolean = false;
@@ -101,17 +103,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   sendConfrim() {
+    this.loading = true;
     let data: Update = {
       email: this.emailLogin,
     };
     this.updatePasswordService.updateSend(data).subscribe((x) => {
       if (x) {
+        this.loading = false;
         this.confirmationTokenBool = x;
         this.succLoginMsg = 'შეიყვანეთ აქტივაციის კოდი და ახალი პაროლი';
         setTimeout(() => {
           this.succLoginMsg = '';
         }, 2000);
       } else {
+        this.loading = false;
+
         this.errLoginMsg = 'მომხმარებელი არასწორია';
         setTimeout(() => {
           this.errLoginMsg = '';

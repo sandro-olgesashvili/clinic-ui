@@ -16,3 +16,7 @@ export interface Reservation {
   id: number;
   description: string;
 }
+
+export interface TwoFactorI {
+  twoFactor?: boolean;
+}

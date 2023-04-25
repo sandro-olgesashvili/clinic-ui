@@ -64,6 +64,14 @@
     </div>
   </div>
   <div class="login" *ngIf="loginOn">
+    <div class="loading-box" *ngIf="loading">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <div class="login-container" *ngIf="forgotPasswrodBool === false">
       <h2 class="login-header">ავტორიზაცია</h2>
       <form (ngSubmit)="login()">

@@ -9,7 +9,7 @@ import {
   AppointmentSend,
 } from '../interface/appointment';
 import { IUserAppointment } from '../interface/admin-create-user';
-import { DoctorDetail, UserDetail } from '../interface/user';
+import { DoctorDetail, TwoFactorI, UserDetail } from '../interface/user';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +43,9 @@ export class AuthService {
     'https://localhost:7162/api/User/getMoreDetail?Id=';
 
   private getMoreUrl = 'https://localhost:7162/api/User/getMore?Id=';
+
+  private twoFactorUrl = 'https://localhost:7162/api/User/changeTwoFactor';
+
   constructor(private http: HttpClient) {}
 
   getToken() {
@@ -93,5 +96,9 @@ export class AuthService {
 
   getMore(data: IUserAppointment): Observable<DoctorDetail> {
     return this.http.get<DoctorDetail>(`${this.getMoreUrl}${data.id}`);
+  }
+
+  twoFactor(data: TwoFactorI): Observable<boolean> {
+    return this.http.put<boolean>(this.twoFactorUrl, data);
   }
 }

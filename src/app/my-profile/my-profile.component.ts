@@ -11,7 +11,7 @@ import {
   AppointmentSend,
 } from '../interface/appointment';
 import { IUserAppointment } from '../interface/admin-create-user';
-import { UserDetail } from '../interface/user';
+import { TwoFactorI, UserDetail } from '../interface/user';
 
 @Component({
   selector: 'app-my-profile',
@@ -27,6 +27,7 @@ export class MyProfileComponent implements OnInit {
     idNumber: '',
     categoryName: null,
     role: '',
+    twoFactor: false,
   };
 
   details: UserDetail = {
@@ -263,6 +264,22 @@ export class MyProfileComponent implements OnInit {
     this.authService.getMoreDetail(sendData).subscribe((x) => {
       this.detailsBool = true;
       this.details = x;
+    });
+  }
+
+  onChange() {
+    const data: TwoFactorI = {
+      twoFactor: this.myProfile.twoFactor,
+    };
+    this.authService.twoFactor(data).subscribe((x) => {
+      if (x) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Two Factor',
+          detail: 'Two Factor შეცვლილია',
+          life: 3000,
+        });
+      }
     });
   }
 

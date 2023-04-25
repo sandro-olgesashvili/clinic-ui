@@ -25,4 +25,5 @@ export interface MyProfile {
   idNumber: string;
   categoryName: string | null;
   role: string;
+  twoFactor?: boolean;
 }

@@ -44,6 +44,7 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminUserControllerComponent } from './admin-user-controller/admin-user-controller.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    InputSwitchModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
