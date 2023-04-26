@@ -129,12 +129,15 @@
             placeholder="ელ. ფოსტა/ ტელეფონის ნომერი"
             name="emailLogin"
             [(ngModel)]="emailLogin"
+            [disabled]="restorePassword"
           />
           <input
+            *ngIf="restorePassword"
             type="text"
             placeholder="აქტივაციის კოდი"
             name="confirmationToken"
             [(ngModel)]="confirmationToken"
+            [disabled]="confirmationTokenBool"
           />
           <div class="update-password" *ngIf="confirmationTokenBool">
             <input
@@ -154,8 +157,20 @@
             ავტორიზაცია
           </button>
         </div>
-        <button type="submit" class="login-btn" *ngIf="!confirmationTokenBool">
+        <button
+          type="submit"
+          class="login-btn"
+          *ngIf="!confirmationTokenBool && !restorePassword"
+        >
           მეილზე გაგზავნა
+        </button>
+        <button
+          type="button"
+          class="login-btn"
+          *ngIf="restorePassword && !confirmationTokenBool"
+          (click)="onRestore()"
+        >
+          კოდის აქტივაცია
         </button>
         <button
           type="button"

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import {
   Login,
   LoginTwoFactor,
+  RestorePassword,
   Update,
   UpdatePassword,
 } from '../interface/login';
@@ -21,6 +22,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ls: User | null = JSON.parse(localStorage.getItem('user')!);
   isUserLoggedIn: boolean = false;
 
+  passwordReg =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
   subscription!: Subscription;
   subscription2!: Subscription;
 
@@ -30,6 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loginOn: boolean = false;
 
   loading: boolean = false;
+
+  restorePassword: boolean = false;
 
   loginTwoFactorBool: boolean = false;
 
@@ -78,6 +84,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   closeLogin() {
     this.loginOn = false;
     this.passwordLogin = '';
+    this.loginTwoFactorBool = false;
+    this.confirmationToken = '';
+    this.restorePassword = false;
+    this.confirmationTokenBool = false;
+    this.updatePassword = '';
+    this.updatePassword2 = '';
+    this.emailLogin = '';
+    this.twoFactorStr = '';
   }
   openLogin() {
     this.loginOn = true;
@@ -114,6 +128,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataSharingService.sendBool(true, this.ls);
         this.loginOn = false;
         this.isUserLoggedIn = true;
+        this.router.navigate(['/']);
       }
     });
   }
@@ -156,8 +171,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.updatePasswordService.updateSend(data).subscribe((x) => {
       if (x) {
         this.loading = false;
-        this.confirmationTokenBool = x;
-        this.succLoginMsg = 'შეიყვანეთ აქტივაციის კოდი და ახალი პაროლი';
+        this.restorePassword = x;
+        this.succLoginMsg = 'შეიყვანეთ აქტივაციის კოდი';
         setTimeout(() => {
           this.succLoginMsg = '';
         }, 2000);
@@ -171,13 +186,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  onRestore() {
+    let data: RestorePassword = {
+      email: this.emailLogin,
+      confirmationToken: this.confirmationToken,
+    };
+
+    this.updatePasswordService.restorePassword(data).subscribe((x) => {
+      if (x) {
+        this.loading = false;
+        this.confirmationTokenBool = x;
+        this.succLoginMsg = 'შეიყვანეთ ახალი პაროლი';
+        setTimeout(() => {
+          this.succLoginMsg = '';
+        }, 2000);
+      } else {
+        this.loading = false;
+
+        this.errLoginMsg = 'აქტივაციის კოდი არასწორია';
+        setTimeout(() => {
+          this.errLoginMsg = '';
+        }, 2000);
+      }
+    });
+  }
+
   update() {
     let data: UpdatePassword = {
       email: this.emailLogin,
       password: this.updatePassword,
       confirmationToken: this.confirmationToken,
     };
-    if (this.updatePassword !== this.updatePassword2) {
+    if (!this.passwordReg.test(this.updatePassword)) {
+      this.errLoginMsg = 'სცადეთ სხვა პაროლი';
+      setTimeout(() => {
+        this.errLoginMsg = '';
+      }, 2000);
+    } else if (this.updatePassword !== this.updatePassword2) {
       this.errLoginMsg = 'პაროლი არასწორია';
       setTimeout(() => {
         this.errLoginMsg = '';
@@ -190,6 +236,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.confirmationToken = '';
           this.forgotPasswrodBool = false;
           this.confirmationTokenBool = false;
+          this.restorePassword = false;
           this.succLoginMsg = 'პაროლი აღდგენილია';
           setTimeout(() => {
             this.succLoginMsg = '';

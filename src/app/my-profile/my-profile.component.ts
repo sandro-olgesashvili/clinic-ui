@@ -19,6 +19,9 @@ import { TwoFactorI, UserDetail } from '../interface/user';
   styleUrls: ['./my-profile.component.css'],
 })
 export class MyProfileComponent implements OnInit {
+  passwordReg =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
   myProfile: MyProfile = {
     id: 0,
     name: '',
@@ -94,7 +97,14 @@ export class MyProfileComponent implements OnInit {
   }
 
   onUpdatePasswrod() {
-    if (this.password.trim()) {
+    if (!this.passwordReg.test(this.password)) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'პაროლი',
+        detail: 'სცადეთ სხვა პაროლი',
+        life: 3000,
+      });
+    } else if (this.password.trim()) {
       this.authService
         .passwordUpdate(this.myProfile.id, this.password)
         .subscribe((x) => {

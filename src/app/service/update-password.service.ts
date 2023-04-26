@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Update, UpdatePassword } from '../interface/login';
+import { RestorePassword, Update, UpdatePassword } from '../interface/login';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UpdatePasswordService {
-  updateUrl = 'https://localhost:7162/api/User/update-confirm-send';
+  private updateUrl = 'https://localhost:7162/api/User/update-confirm-send';
 
-  updatePasswordUrl = 'https://localhost:7162/api/User/update';
+  private updatePasswordUrl = 'https://localhost:7162/api/User/update';
+
+  private passwordRestoreUrl =
+    'https://localhost:7162/api/User/passwrodRestore';
 
   constructor(private http: HttpClient) {}
 
@@ -19,5 +22,9 @@ export class UpdatePasswordService {
 
   confirmPassword(data: UpdatePassword): Observable<any> {
     return this.http.put(this.updatePasswordUrl, data);
+  }
+
+  restorePassword(data: RestorePassword): Observable<boolean> {
+    return this.http.put<boolean>(this.passwordRestoreUrl, data);
   }
 }

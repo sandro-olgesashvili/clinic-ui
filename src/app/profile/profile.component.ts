@@ -21,6 +21,9 @@ import { UserDetail } from '../interface/user';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  passwordReg =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
   profile: Doctors = {
     id: 0,
     name: '',
@@ -118,6 +121,8 @@ export class ProfileComponent implements OnInit {
   onCancel() {
     this.passwordBool = false;
     this.emailBool = false;
+    this.password = '';
+    this.email = '';
   }
   onEmail() {
     this.emailBool = true;
@@ -233,7 +238,14 @@ export class ProfileComponent implements OnInit {
   }
 
   onPasswordChange() {
-    if (this.password.trim()) {
+    if (!this.passwordReg.test(this.password)) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'პაროლი',
+        detail: 'სცადეთ სხვა პაროლი',
+        life: 3000,
+      });
+    } else if (this.password.trim()) {
       this.adminControllerService
         .passwordChange(this.profile.id, this.password)
         .subscribe((x) => {
