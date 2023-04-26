@@ -70,7 +70,6 @@ export class DoctorComponent implements OnInit {
     };
     this.userService.getDoctorProfileForAppointment(sendData).subscribe((x) => {
       this.doctor = x;
-      console.log(x);
     });
     this.userService.getDocotrAppointments(data).subscribe((x) => {
       this.appointments = x;

@@ -59,7 +59,6 @@ export class AdminRegisterComponent implements OnInit {
     this.imageName = event.target.files[0].name;
     this.file = event.target.files[0];
     this.formData.append('ImageFile', event.target.files[0]);
-    console.log(this.file);
   }
   onChangePdf(event: any) {
     this.filePdf = null;
@@ -67,16 +66,13 @@ export class AdminRegisterComponent implements OnInit {
     this.pdfName = event.target.files[0].name;
     this.filePdf = event.target.files[0];
     this.formData.append('PdfFile', event.target.files[0]);
-    console.log(this.filePdf);
   }
 
   onSelectRole(data: string) {
     this.role = data;
     this.roleBool = false;
   }
-  onSelect() {
-    console.log(this.category);
-  }
+  onSelect() {}
 
   onCreateUser() {
     const data: AdminCreateUser = {
@@ -192,7 +188,7 @@ export class AdminRegisterComponent implements OnInit {
           this.router.navigate(['/']);
         } else {
           this.errMsg = 'არსებული მეილით მომხმარებელი უკვე არსებობს';
-
+          this.formData.delete('email');
           setTimeout(() => {
             this.errMsg = '';
           }, 2000);

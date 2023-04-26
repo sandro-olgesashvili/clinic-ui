@@ -25,7 +25,6 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getCategory().subscribe((x) => {
-      console.log(x);
       this.products = x;
     });
   }
@@ -59,8 +58,8 @@ export class CategoryComponent implements OnInit {
             this.product = {};
             this.messageService.add({
               severity: 'success',
-              summary: 'Successful',
-              detail: 'Product Deleted',
+              summary: 'კატეოგრია',
+              detail: 'კატეოგრია წაიშალა',
               life: 3000,
             });
           } else {

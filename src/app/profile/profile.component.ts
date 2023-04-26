@@ -316,15 +316,9 @@ export class ProfileComponent implements OnInit {
       id: data.id,
     };
     this.authService.getMoreDetail(sendData).subscribe((x) => {
-      console.log(x, 'asdadasd');
-
       this.detailsBool = true;
 
       this.details = x;
-      // this.details.image = x.image;
-      // this.details.surname = x.surname;
-      // this.details.name = x.name;
-      // this.details.description = x.descriptino;
     });
   }
 
@@ -333,7 +327,6 @@ export class ProfileComponent implements OnInit {
       id: data.id,
     };
     this.authService.getMore(sendData).subscribe((x) => {
-      // console.log(x, 'asdadasd');
       this.detailsBool = true;
       this.details.image = x.image;
       this.details.surname = x.surname;

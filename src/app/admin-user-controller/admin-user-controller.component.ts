@@ -44,7 +44,6 @@ export class AdminUserControllerComponent implements OnInit {
 
     this.adminControllerService.changePin(sendData).subscribe((x) => {
       doctor[0].isPinned = x.isPinned;
-      console.log(x);
     });
   }
 }
